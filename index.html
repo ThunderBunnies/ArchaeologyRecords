@@ -65,6 +65,9 @@
     <label for="description">Description:</label>
     <textarea id="description" rows="3" required></textarea>
 
+    <label for="file">Attach File (Image/Doc):</label>
+    <input type="file" id="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
+
     <button type="submit">Add Record</button>
   </form>
 
@@ -76,6 +79,7 @@
         <th>Site Name</th>
         <th>Location</th>
         <th>Description</th>
+        <th>File</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -96,15 +100,16 @@
         r.description.toLowerCase().includes(filter)
       );
       if (filteredRecords.length === 0) {
-        recordsTableBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No records found.</td></tr>';
+        recordsTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No records found.</td></tr>';
         return;
       }
-      filteredRecords.forEach(({siteName, location, description}) => {
+      filteredRecords.forEach(({ siteName, location, description, fileData, fileName }) => {
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${siteName}</td>
           <td>${location}</td>
           <td>${description}</td>
+          <td>${fileData ? `<a href="${fileData}" download="${fileName}" target="_blank">Download</a>` : '—'}</td>
         `;
         recordsTableBody.appendChild(row);
       });
@@ -115,14 +120,27 @@
       const siteName = form.siteName.value.trim();
       const location = form.location.value.trim();
       const description = form.description.value.trim();
+      const fileInput = document.getElementById('file');
+      const file = fileInput.files[0];
 
       if (!siteName || !location || !description) return;
 
-      records.push({siteName, location, description});
-      localStorage.setItem('archaeologyRecords', JSON.stringify(records));
-      renderRecords(searchInput.value.toLowerCase());
-
-      form.reset();
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const fileData = event.target.result;
+          records.push({ siteName, location, description, fileData, fileName: file.name });
+          localStorage.setItem('archaeologyRecords', JSON.stringify(records));
+          renderRecords(searchInput.value.toLowerCase());
+          form.reset();
+        };
+        reader.readAsDataURL(file);
+      } else {
+        records.push({ siteName, location, description, fileData: null, fileName: null });
+        localStorage.setItem('archaeologyRecords', JSON.stringify(records));
+        renderRecords(searchInput.value.toLowerCase());
+        form.reset();
+      }
     });
 
     searchInput.addEventListener('input', () => {
