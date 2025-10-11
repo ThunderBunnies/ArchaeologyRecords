@@ -5,98 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Archaeological Records Digitization</title>
   <style>
-    body { font-family: Arial; margin: 20px; }
-    input, textarea, select { width: 100%; margin: 5px 0; padding: 8px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background-color: #f0f0f0; }
-    .record-form { max-width: 600px; margin-bottom: 30px; }
-  </style>
-</head>
-<body>
-  <h1>Digitize Archaeological Records</h1>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
 
-  <div class="record-form">
-    <h2>Add New Record</h2>
-    <form id="recordForm">
-      <label>Site Name:</label>
-      <input type="text" id="siteName" required />
+    h1, h2 {
+      color: #333;
+    }
 
-      <label>Artifact Description:</label>
-      <textarea id="description" required></textarea>
+    input, textarea, select, button {
+      width: 100%;
+      margin: 5px 0 15px 0;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
 
-      <label>Estimated Date:</label>
-      <input type="text" id="date" placeholder="e.g. 1200 BCE" />
+    input[type="file"] {
+      padding: 3px;
+    }
 
-      <label>GPS Coordinates:</label>
-      <input type="text" id="coordinates" placeholder="Latitude, Longitude" />
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
 
-      <label>Upload Image:</label>
-      <input type="file" id="imageUpload" accept="image/*" />
+    button:hover {
+      background-color: #45a049;
+    }
 
-      <button type="submit">Add Record</button>
-    </form>
-  </div>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
 
-  <div>
-    <h2>All Records</h2>
-    <table id="recordsTable">
-      <thead>
-        <tr>
-          <th>Site</th>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Coordinates</th>
-          <th>Image</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
 
-  <script>
-    const form = document.getElementById('recordForm');
-    const tableBody = document.querySelector('#recordsTable tbody');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const site = document.getElementById('siteName').value;
-      const description = document.getElementById('description').value;
-      const date = document.getElementById('date').value;
-      const coordinates = document.getElementById('coordinates').value;
-      const imageFile = document.getElementById('imageUpload').files[0];
-
-      const reader = new FileReader();
-      reader.onload = function () {
-        const imageURL = reader.result;
-
-        const row = tableBody.insertRow();
-        row.innerHTML = `
-          <td>${site}</td>
-          <td>${description}</td>
-          <td>${date}</td>
-          <td>${coordinates}</td>
-          <td><img src="${imageURL}" width="100" /></td>
-        `;
-
-        form.reset();
-      };
-
-      if (imageFile) {
-        reader.readAsDataURL(imageFile);
-      } else {
-        const row = tableBody.insertRow();
-        row.innerHTML = `
-          <td>${site}</td>
-          <td>${description}</td>
-          <td>${date}</td>
-          <td>${coordinates}</td>
-          <td>No image</td>
-        `;
-        form.reset();
-      }
-    });
-  </script>
-</body>
-</html>
+    th {
+      background-color: #e8e8e8;
+    }
