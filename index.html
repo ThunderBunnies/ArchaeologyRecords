@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Archaeological Records Digitization</title>
   <style>
     body {
@@ -19,9 +19,6 @@
       padding: 10px;
       box-sizing: border-box;
       font-size: 1em;
-    }
-    input[type="file"] {
-      padding: 3px;
     }
     button {
       background-color: #4CAF50;
@@ -46,10 +43,94 @@
     th {
       background-color: #e8e8e8;
     }
+    #search {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 1em;
+    }
   </style>
 </head>
 <body>
+
   <h1>Archaeological Records Digitization</h1>
-  <p>Welcome to the demo site!</p>
+
+  <form id="recordForm">
+    <label for="siteName">Site Name:</label>
+    <input type="text" id="siteName" required />
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" required />
+
+    <label for="description">Description:</label>
+    <textarea id="description" rows="3" required></textarea>
+
+    <button type="submit">Add Record</button>
+  </form>
+
+  <input type="text" id="search" placeholder="Search records..." />
+
+  <table id="recordsTable">
+    <thead>
+      <tr>
+        <th>Site Name</th>
+        <th>Location</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('recordForm');
+    const recordsTableBody = document.querySelector('#recordsTable tbody');
+    const searchInput = document.getElementById('search');
+
+    let records = JSON.parse(localStorage.getItem('archaeologyRecords')) || [];
+
+    function renderRecords(filter = '') {
+      recordsTableBody.innerHTML = '';
+      const filteredRecords = records.filter(r =>
+        r.siteName.toLowerCase().includes(filter) ||
+        r.location.toLowerCase().includes(filter) ||
+        r.description.toLowerCase().includes(filter)
+      );
+      if (filteredRecords.length === 0) {
+        recordsTableBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No records found.</td></tr>';
+        return;
+      }
+      filteredRecords.forEach(({siteName, location, description}) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${siteName}</td>
+          <td>${location}</td>
+          <td>${description}</td>
+        `;
+        recordsTableBody.appendChild(row);
+      });
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const siteName = form.siteName.value.trim();
+      const location = form.location.value.trim();
+      const description = form.description.value.trim();
+
+      if (!siteName || !location || !description) return;
+
+      records.push({siteName, location, description});
+      localStorage.setItem('archaeologyRecords', JSON.stringify(records));
+      renderRecords(searchInput.value.toLowerCase());
+
+      form.reset();
+    });
+
+    searchInput.addEventListener('input', () => {
+      renderRecords(searchInput.value.toLowerCase());
+    });
+
+    // Initial render
+    renderRecords();
+  </script>
+
 </body>
 </html>
