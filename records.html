@@ -4,161 +4,61 @@
   <meta charset="utf-8" />
   <title>Records — Archaeology Records</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Browse and add archaeological site records." />
   <link rel="preload" href="styles.css" as="style" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Header -->
-  <header class="site-header" role="banner">
+  <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="./" aria-label="Archaeology Records home">
-        <span class="brand-mark" aria-hidden="true">⚡</span>
-        Archaeology Records
-      </a>
-      <nav class="menu" aria-label="Primary">
+      <a class="brand" href="./"><span class="brand-mark">⚡</span>Archaeology Records</a>
+      <nav class="menu">
         <a href="./#about">About</a>
         <a href="./#features">Features</a>
         <a href="#add">Contribute</a>
-        <a class="btn btn-small" href="./">Back to Home</a>
       </nav>
     </div>
   </header>
 
-  <main id="main" tabindex="-1">
-    <!-- Records Header -->
-    <section class="hero" style="padding:2.5rem 0;">
-      <div class="container hero-inner">
-        <h1>Browse Records</h1>
-        <p class="lead">Search and scan the archive. Use the filter to find sites by name, location, or keywords.</p>
-        <div class="cta-group" style="margin-top:1rem;">
-          <a class="btn btn-primary" href="#add">Add a Record</a>
-          <a class="btn btn-outline" href="./index.html">Home</a>
-        </div>
+  <main class="section">
+    <div class="container">
+      <h1>Browse Records</h1>
+      <input id="filterInput" type="search" placeholder="Filter records..." style="margin:1rem 0;padding:.6rem;width:100%;max-width:400px;">
+      <div class="card" style="overflow:auto;">
+        <table id="recordsTable" style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr>
+              <th>Site Name</th><th>Location</th><th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Fort Shantok</td><td>Montville, CT</td><td>Mohegan fort and village; 17th–18th c. remains.</td></tr>
+            <tr><td>Old Newgate Mine</td><td>East Granby, CT</td><td>Colonial copper mine later used as a prison.</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="hero-pattern" aria-hidden="true"></div>
-    </section>
-
-    <!-- Filter + Table -->
-    <section class="section">
-      <div class="container">
-        <div class="card" style="padding:1rem;">
-          <label style="display:grid; gap:.35rem;">
-            <strong>Filter records</strong>
-            <input id="filterInput" type="search" placeholder="Type to filter by site, location, or description…" aria-label="Filter records" />
-          </label>
-        </div>
-
-        <div class="card" style="margin-top:1rem; overflow:auto;">
-          <!-- Responsive table -->
-          <table id="recordsTable" style="width:100%; border-collapse:collapse;">
-            <thead>
-              <tr>
-                <th style="text-align:left; padding:.75rem; border-bottom:1px solid rgba(255,255,255,.12);">Site Name</th>
-                <th style="text-align:left; padding:.75rem; border-bottom:1px solid rgba(255,255,255,.12);">Location</th>
-                <th style="text-align:left; padding:.75rem; border-bottom:1px solid rgba(255,255,255,.12);">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Sample rows; replace with your data source / generator -->
-              <tr>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Fort Shantok</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Montville, CT</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Mohegan fort and village; 17th–18th c. occupation layers.</td>
-              </tr>
-              <tr>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Old Newgate Copper Mine</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">East Granby, CT</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Early mining site later used as colonial prison; industrial remains.</td>
-              </tr>
-              <tr>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Guilford Green</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Guilford, CT</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Town commons with stratified historic deposits (17th–19th c.).</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="muted" style="margin-top:.6rem;">Tip: Replace the sample rows with your real data (CSV/JSON or serverless script). The filter works automatically on all columns.</p>
-      </div>
-    </section>
-
-    <!-- Add Record -->
-    <section id="add" class="section">
-      <div class="container grid-2">
-        <div>
-          <h2>Add a Record</h2>
-          <p>
-            Submit a new entry with a clear title, location (coordinates or locality), and concise description.
-            You can wire this form to a Google Form, a small serverless function, or manage submissions via GitHub Issues.
-          </p>
-          <div class="cta-group">
-            <a class="btn btn-outline" href="https://github.com/thunderbunnies/ArchaeologyRecords/issues/new" target="_blank" rel="noopener">Submit via GitHub Issue</a>
-            <a class="btn btn-primary" href="./index.html">Back to Home</a>
-          </div>
-        </div>
-
-        <form class="mini-form" onsubmit="event.preventDefault(); alert('Demo only — connect to your workflow (Google Form, serverless, or GitHub).');">
-          <h3>Quick submission (demo)</h3>
-          <label>
-            Site name
-            <input id="siteName" type="text" required placeholder="e.g., Fort Shantok" />
-          </label>
-          <label>
-            Location
-            <input id="siteLocation" type="text" required placeholder="Town, State or coordinates" />
-          </label>
-          <label>
-            Description
-            <textarea id="siteDescription" rows="4" placeholder="Brief context and significance"></textarea>
-          </label>
-          <button class="btn btn-primary" type="submit">Preview submission</button>
-          <p class="form-note">This form is static. Replace with your actual submission method.</p>
-        </form>
-      </div>
-    </section>
+    </div>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div>
-        <span class="brand-mark" aria-hidden="true">⚡</span>
-        <strong>Archaeology Records</strong>
-        <p class="muted">Thunder Bunnies theme · Browse & contribute.</p>
-      </div>
-      <nav aria-label="Footer">
-        <a href="./#about">About</a>
-        <a href="./#features">Features</a>
-        <a href="#add">Contribute</a>
-        <a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank" rel="noopener">GitHub</a>
+      <div><span class="brand-mark">⚡</span><strong>Archaeology Records</strong></div>
+      <nav>
+        <a href="./index.html">Home</a>
+        <a href="#add">Add</a>
       </nav>
     </div>
-    <div class="legal">© <span id="y"></span> Archaeology Records</div>
   </footer>
 
   <script>
-    // Footer year
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Simple keyword filter over table rows
-    const filterInput = document.getElementById('filterInput');
-    const table = document.getElementById('recordsTable');
-    const rows = () => Array.from(table.tBodies[0].rows);
-
-    function applyFilter(q){
-      const needle = q.trim().toLowerCase();
-      rows().forEach(tr => {
-        const text = tr.innerText.toLowerCase();
-        tr.style.display = text.includes(needle) ? '' : 'none';
+    document.getElementById("y")?.textContent = new Date().getFullYear();
+    const filterInput = document.getElementById("filterInput");
+    const rows = () => Array.from(document.querySelectorAll("#recordsTable tbody tr"));
+    filterInput.addEventListener("input", e=>{
+      const q = e.target.value.toLowerCase();
+      rows().forEach(r=>{
+        r.style.display = r.innerText.toLowerCase().includes(q)? "":"none";
       });
-    }
-
-    filterInput.addEventListener('input', (e) => applyFilter(e.target.value));
+    });
   </script>
 </body>
 </html>
