@@ -1,155 +1,168 @@
-<!-- Display a form to add records, Save data in localStorage, Show the saved records in a table, Include a search/filter function -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
+  <title>Archaeology Records — Explore, Preserve, Share</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Archaeological Records Digitization</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
-    }
-    h1, h2 {
-      color: #333;
-    }
-    input, textarea, select, button {
-      width: 100%;
-      margin: 5px 0 15px 0;
-      padding: 10px;
-      box-sizing: border-box;
-      font-size: 1em;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-      vertical-align: top;
-    }
-    th {
-      background-color: #e8e8e8;
-    }
-    #search {
-      margin-top: 20px;
-      padding: 10px;
-      font-size: 1em;
-    }
-  </style>
+  <meta name="description" content="A lightweight, open archaeological records hub — browse existing records, contribute new ones, and help preserve site information." />
+  <link rel="preload" href="styles.css" as="style" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <meta property="og:title" content="Archaeology Records" />
+  <meta property="og:description" content="Explore, preserve, and share archaeological site records." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thunderbunnies.github.io/ArchaeologyRecords/" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <h1>Archaeological Records Digitization</h1>
+  <header class="site-header" role="banner">
+    <div class="container nav">
+      <a class="brand" href="./" aria-label="Archaeology Records home">
+        <span class="brand-mark" aria-hidden="true">⟁</span>
+        Archaeology Records
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#contribute">Contribute</a>
+        <a class="btn btn-small" href="records.html">Browse Records</a>
+      </nav>
+    </div>
+  </header>
 
-  <form id="recordForm">
-    <label for="siteName">Site Name:</label>
-    <input type="text" id="siteName" required />
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Explore, Preserve, Share</h1>
+      <p class="lead">
+        A simple, open hub for archaeological site records. Search the archive, add new records,
+        and keep vital data accessible for researchers, students, and the public.
+      </p>
+      <div class="cta-group">
+        <a class="btn btn-primary" href="records.html">Browse Records</a>
+        <!-- If you have a form page already, update this link; otherwise it anchors to contribute section -->
+        <a class="btn btn-outline" href="#contribute">Add a Record</a>
+      </div>
+    </div>
+    <!-- Decorative background pattern -->
+    <div class="hero-pattern" aria-hidden="true"></div>
+  </section>
 
-    <label for="location">Location:</label>
-    <input type="text" id="location" required />
+  <main id="main" tabindex="-1">
+    <!-- Why / About -->
+    <section id="about" class="section">
+      <div class="container grid-2">
+        <div>
+          <h2>Why this archive exists</h2>
+          <p>
+            Archaeological information is often scattered in reports, PDFs, and personal notes.
+            This project gathers site records into a lightweight, searchable collection to improve
+            preservation and discovery.
+          </p>
+          <ul class="checklist">
+            <li>Preservation of site data over time</li>
+            <li>Searchable, mobile-friendly access</li>
+            <li>Community contributions welcomed</li>
+          </ul>
+        </div>
+        <div class="card callout">
+          <h3 class="tight">Quick actions</h3>
+          <ul class="linklist">
+            <li><a href="records.html">Browse all records →</a></li>
+            <li><a href="#contribute">Submit a new record →</a></li>
+            <li><a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank" rel="noopener">View the GitHub repo →</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <label for="description">Description:</label>
-    <textarea id="description" rows="3" required></textarea>
+    <!-- Features -->
+    <section id="features" class="section alt">
+      <div class="container">
+        <h2 class="center">What you can do</h2>
+        <div class="features-grid">
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🔎</div>
+            <h3>Search & filter</h3>
+            <p>Find sites by name, location, keywords, or description (supports basic filtering patterns).</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🧭</div>
+            <h3>Browse records</h3>
+            <p>Scan the table of sites quickly on desktop and mobile, then jump into details.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">📥</div>
+            <h3>Add new entries</h3>
+            <p>Contribute new site records with clear fields so others can reference your work.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🗺️</div>
+            <h3>Map-ready data</h3>
+            <p>Keep locations and metadata structured so records can be visualized later.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <label for="file">Attach File (Image/Doc):</label>
-    <input type="file" id="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
+    <!-- Contribute -->
+    <section id="contribute" class="section">
+      <div class="container grid-2">
+        <div>
+          <h2>Contribute a record</h2>
+          <p>
+            Have a site to add? Keep titles clear, include coordinates or a locality, and a concise
+            description. If you already have a submission page, link the button below to it.
+          </p>
+          <div class="cta-group">
+            <!-- Update this href to your actual submission URL, Google Form, or page -->
+            <a class="btn btn-primary" href="records.html#add">Go to Add Record</a>
+            <a class="btn btn-outline" href="https://github.com/thunderbunnies/ArchaeologyRecords/issues/new" target="_blank" rel="noopener">Open an issue</a>
+          </div>
+        </div>
 
-    <button type="submit">Add Record</button>
-  </form>
+        <form class="mini-form" aria-labelledby="contribute-form-title" onsubmit="event.preventDefault(); alert('This demo form doesn\\'t submit — wire it to your workflow or link to your real form.');">
+          <h3 id="contribute-form-title">Quick mock form</h3>
+          <label>
+            Site name
+            <input type="text" placeholder="e.g., Fort Shantok" required />
+          </label>
+          <label>
+            Location
+            <input type="text" placeholder="Town, State" required />
+          </label>
+          <label>
+            Description
+            <textarea rows="4" placeholder="Brief context and significance"></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Preview submission</button>
+          <p class="form-note">Tip: Replace this with your real form or route to your GitHub workflow.</p>
+        </form>
+      </div>
+    </section>
+  </main>
 
-  <input type="text" id="search" placeholder="Search records..." />
-
-  <table id="recordsTable">
-    <thead>
-      <tr>
-        <th>Site Name</th>
-        <th>Location</th>
-        <th>Description</th>
-        <th>File</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <span class="brand-mark" aria-hidden="true">⟁</span>
+        <strong>Archaeology Records</strong>
+        <p class="muted">An open, lightweight records hub.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="records.html">Browse</a>
+        <a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+    <div class="legal">© <span id="y"></span> Archaeology Records · MIT-friendly</div>
+  </footer>
 
   <script>
-    const form = document.getElementById('recordForm');
-    const recordsTableBody = document.querySelector('#recordsTable tbody');
-    const searchInput = document.getElementById('search');
-
-    let records = JSON.parse(localStorage.getItem('archaeologyRecords')) || [];
-
-    function renderRecords(filter = '') {
-      recordsTableBody.innerHTML = '';
-      const filteredRecords = records.filter(r =>
-        r.siteName.toLowerCase().includes(filter) ||
-        r.location.toLowerCase().includes(filter) ||
-        r.description.toLowerCase().includes(filter)
-      );
-      if (filteredRecords.length === 0) {
-        recordsTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No records found.</td></tr>';
-        return;
-      }
-      filteredRecords.forEach(({ siteName, location, description, fileData, fileName }) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${siteName}</td>
-          <td>${location}</td>
-          <td>${description}</td>
-          <td>${fileData ? `<a href="${fileData}" download="${fileName}" target="_blank">Download</a>` : '—'}</td>
-        `;
-        recordsTableBody.appendChild(row);
-      });
-    }
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const siteName = form.siteName.value.trim();
-      const location = form.location.value.trim();
-      const description = form.description.value.trim();
-      const fileInput = document.getElementById('file');
-      const file = fileInput.files[0];
-
-      if (!siteName || !location || !description) return;
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          const fileData = event.target.result;
-          records.push({ siteName, location, description, fileData, fileName: file.name });
-          localStorage.setItem('archaeologyRecords', JSON.stringify(records));
-          renderRecords(searchInput.value.toLowerCase());
-          form.reset();
-        };
-        reader.readAsDataURL(file);
-      } else {
-        records.push({ siteName, location, description, fileData: null, fileName: null });
-        localStorage.setItem('archaeologyRecords', JSON.stringify(records));
-        renderRecords(searchInput.value.toLowerCase());
-        form.reset();
-      }
-    });
-
-    searchInput.addEventListener('input', () => {
-      renderRecords(searchInput.value.toLowerCase());
-    });
-
-    // Initial render
-    renderRecords();
+    // Set current year in footer (no external JS needed)
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
