@@ -33,7 +33,7 @@
     <section class="hero" style="padding:2.5rem 0;">
       <div class="container hero-inner">
         <h1>Browse Records</h1>
-        <p class="lead">Search the archive. Use the filter to find sites by name, location, or keywords.</p>
+        <p class="lead">Search and scan the archive. Use the filter to find sites by name, location, or keywords.</p>
         <div class="cta-group" style="margin-top:1rem;">
           <a class="btn btn-primary" href="#add">Add a Record</a>
           <a class="btn btn-outline" href="./index.html">Home</a>
@@ -53,6 +53,7 @@
         </div>
 
         <div class="card" style="margin-top:1rem; overflow:auto;">
+          <!-- Responsive table -->
           <table id="recordsTable" style="width:100%; border-collapse:collapse;">
             <thead>
               <tr>
@@ -62,24 +63,27 @@
               </tr>
             </thead>
             <tbody>
-              <!-- ⬇️ PASTE YOUR EXISTING <tr> ROWS HERE ⬇️ -->
-              <!-- Example rows (remove these when you paste yours) -->
+              <!-- Sample rows; replace with your data source / generator -->
               <tr>
                 <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Fort Shantok</td>
                 <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Montville, CT</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Mohegan fort and village; 17th–18th c. deposits.</td>
+                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Mohegan fort and village; 17th–18th c. occupation layers.</td>
               </tr>
               <tr>
                 <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Old Newgate Copper Mine</td>
                 <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">East Granby, CT</td>
-                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Early mining site later used as prison; industrial remains.</td>
+                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Early mining site later used as colonial prison; industrial remains.</td>
               </tr>
-              <!-- ⬆️ END PASTE AREA ⬆️ -->
+              <tr>
+                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Guilford Green</td>
+                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Guilford, CT</td>
+                <td style="padding:.75rem; border-bottom:1px solid rgba(255,255,255,.06);">Town commons with stratified historic deposits (17th–19th c.).</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <p class="muted" style="margin-top:.6rem;">Tip: the filter below searches across all table text.</p>
+        <p class="muted" style="margin-top:.6rem;">Tip: Replace the sample rows with your real data (CSV/JSON or serverless script). The filter works automatically on all columns.</p>
       </div>
     </section>
 
@@ -153,6 +157,7 @@
         tr.style.display = text.includes(needle) ? '' : 'none';
       });
     }
+
     filterInput.addEventListener('input', (e) => applyFilter(e.target.value));
   </script>
 </body>
