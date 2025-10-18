@@ -1,168 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Archaeology Records — Explore, Preserve, Share</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="An open archaeological records hub — browse existing records, contribute to the digitization of new ones, and help preserve site information." />
-  <link rel="preload" href="styles.css" as="style" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
-  <meta property="og:title" content="Archaeology Records" />
-  <meta property="og:description" content="Explore, preserve, and share archaeological site records." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://thunderbunnies.github.io/ArchaeologyRecords/" />
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+:root{
+  /* Thunder Bunnies theme — bright, bold, and fun */
+  --bg: #0D1117;           /* deep midnight base */
+  --bg-soft:#161B22;       /* slightly lighter panels */
+  --surface:#1F262E;       /* card / section background */
+  --ink:#E6EDF3;           /* main text */
+  --muted:#8A959E;         /* secondary text */
+  --accent:#00C9FF;        /* electric cyan lightning */
+  --accent-2:#FFB300;      /* golden bunny energy */
+  --ring: rgba(0,201,255,0.4);
+  --max:1080px;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
 
-  <header class="site-header" role="banner">
-    <div class="container nav">
-      <a class="brand" href="./" aria-label="Archaeology Records home">
-        <span class="brand-mark" aria-hidden="true">⟁</span>
-        Archaeology Records
-      </a>
-      <nav class="menu" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#contribute">Contribute</a>
-        <a class="btn btn-small" href="records.html">Browse Records</a>
-      </nav>
-    </div>
-  </header>
+*{ box-sizing:border-box }
+html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink);
+  font-family:system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.5 }
+a{ color:var(--accent); text-decoration:none }
+a:hover{ text-decoration:underline }
+img{ max-width:100%; height:auto; display:block }
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>Explore, Preserve, Share</h1>
-      <p class="lead">
-        A simple, open hub for archaeological site records. Search the archive, add newly digitized records,
-        and keep vital data accessible for researchers, students, and the public.
-      </p>
-      <div class="cta-group">
-        <a class="btn btn-primary" href="records.html">Browse Records</a>
-        <!-- If you have a form page already, update this link; otherwise it anchors to contribute section -->
-        <a class="btn btn-outline" href="#contribute">Add a Record</a>
-      </div>
-    </div>
-    <!-- Decorative background pattern -->
-    <div class="hero-pattern" aria-hidden="true"></div>
-  </section>
+.container{ width:100%; max-width:var(--max); margin-inline:auto; padding:0 1rem }
 
-  <main id="main" tabindex="-1">
-    <!-- Why / About -->
-    <section id="about" class="section">
-      <div class="container grid-2">
-        <div>
-          <h2>Why this archive exists</h2>
-          <p>
-            Archaeological information is often scattered in reports, PDFs, and personal notes.
-            This project gathers site records into a lightweight, searchable collection to improve
-            preservation and discovery.
-          </p>
-          <ul class="checklist">
-            <li>Preservation of site data over time</li>
-            <li>Searchable, mobile-friendly access</li>
-            <li>Community contributions welcomed</li>
-          </ul>
-        </div>
-        <div class="card callout">
-          <h3 class="tight">Quick actions</h3>
-          <ul class="linklist">
-            <li><a href="records.html">Browse all records →</a></li>
-            <li><a href="#contribute">Submit a new record →</a></li>
-            <li><a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank" rel="noopener">View the GitHub repo →</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+/* Skip link */
+.skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden }
+.skip-link:focus{ left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem;
+  background:#fff; color:#000; border-radius:8px; z-index:1000 }
 
-    <!-- Features -->
-    <section id="features" class="section alt">
-      <div class="container">
-        <h2 class="center">What you can do</h2>
-        <div class="features-grid">
-          <div class="feature">
-            <div class="icon" aria-hidden="true">🔎</div>
-            <h3>Search & filter</h3>
-            <p>Find sites by name, location, keywords, or description (supports basic filtering patterns).</p>
-          </div>
-          <div class="feature">
-            <div class="icon" aria-hidden="true">🧭</div>
-            <h3>Browse records</h3>
-            <p>Scan the table of sites quickly on desktop and mobile, then jump into details.</p>
-          </div>
-          <div class="feature">
-            <div class="icon" aria-hidden="true">📥</div>
-            <h3>Add new entries</h3>
-            <p>Contribute new site records with clear fields so others can reference your work.</p>
-          </div>
-          <div class="feature">
-            <div class="icon" aria-hidden="true">🗺️</div>
-            <h3>Map-ready data</h3>
-            <p>Keep locations and metadata structured so records can be visualized later.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+/* Header */
+.site-header{ position:sticky; top:0; z-index:10;
+  backdrop-filter:saturate(120%) blur(6px);
+  background:linear-gradient(to bottom, rgba(22,27,34,.95), rgba(22,27,34,.65));
+  border-bottom:1px solid rgba(255,255,255,.06) }
+.nav{ display:flex; align-items:center; justify-content:space-between; min-height:64px }
+.brand{ font-weight:700; letter-spacing:.2px; display:flex; align-items:center; gap:.6rem }
+.brand-mark{ display:inline-grid; place-items:center; width:28px; height:28px; border-radius:8px;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25) }
+.menu{ display:flex; gap:1rem; align-items:center }
+.menu a{ color:var(--ink); opacity:.92 }
+.menu a:hover{ opacity:1; color:var(--accent) }
 
-    <!-- Contribute -->
-    <section id="contribute" class="section">
-      <div class="container grid-2">
-        <div>
-          <h2>Contribute a record</h2>
-          <p>
-            Have a site to add? Keep titles clear, include coordinates or a locality, and a concise
-            description. If you already have a submission page, link the button below to it.
-          </p>
-          <div class="cta-group">
-            <!-- Update this href to your actual submission URL, Google Form, or page -->
-            <a class="btn btn-primary" href="records.html#add">Go to Add Record</a>
-            <a class="btn btn-outline" href="https://github.com/thunderbunnies/ArchaeologyRecords/issues/new" target="_blank" rel="noopener">Open an issue</a>
-          </div>
-        </div>
+/* Hero */
+.hero{ position:relative; padding:clamp(3rem,6vw,6rem) 0;
+  background:
+  radial-gradient(1200px 600px at 20% -10%, rgba(0,201,255,.18), transparent 60%),
+  radial-gradient(800px 400px at 90% 0%, rgba(255,179,0,.18), transparent 60%),
+  linear-gradient(to bottom, var(--bg-soft), var(--bg));
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.hero-inner{ text-align:center; max-width:900px }
+.hero h1{ font-size:clamp(2rem,5vw,3.25rem); line-height:1.1; margin:.25rem 0 .75rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent }
+.lead{ color:var(--muted); font-size:clamp(1rem,2.5vw,1.125rem) }
+.cta-group{ display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; margin-top:1rem }
 
-        <form class="mini-form" aria-labelledby="contribute-form-title" onsubmit="event.preventDefault(); alert('This demo form doesn\\'t submit — wire it to your workflow or link to your real form.');">
-          <h3 id="contribute-form-title">Quick mock form</h3>
-          <label>
-            Site name
-            <input type="text" placeholder="e.g., Fort Shantok" required />
-          </label>
-          <label>
-            Location
-            <input type="text" placeholder="Town, State" required />
-          </label>
-          <label>
-            Description
-            <textarea rows="4" placeholder="Brief context and significance"></textarea>
-          </label>
-          <button class="btn btn-primary" type="submit">Preview submission</button>
-          <p class="form-note">Tip: Replace this with your real form or route to your GitHub workflow.</p>
-        </form>
-      </div>
-    </section>
-  </main>
+.hero-pattern{ position:absolute; inset:0; pointer-events:none; opacity:.25; background-image:
+  radial-gradient(1px 1px at 10% 20%, #fff 40%, transparent),
+  radial-gradient(1px 1px at 30% 80%, #fff 40%, transparent),
+  radial-gradient(1px 1px at 70% 30%, #fff 40%, transparent),
+  radial-gradient(1px 1px at 90% 60%, #fff 40%, transparent);
+  background-size: 400px 400px, 380px 380px, 420px 420px, 360px 360px;
+  mix-blend-mode: overlay;
+}
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <span class="brand-mark" aria-hidden="true">⟁</span>
-        <strong>Archaeology Records</strong>
-        <p class="muted">An open, lightweight records hub.</p>
-      </div>
-      <nav aria-label="Footer">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="records.html">Browse</a>
-        <a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank" rel="noopener">GitHub</a>
-      </nav>
-    </div>
-    <div class="legal">© <span id="y"></span> Archaeology Records · MIT-friendly</div>
-  </footer>
+/* Sections */
+.section{ padding:clamp(2rem,5vw,4rem) 0 }
+.section.alt{ background:linear-gradient(to bottom,var(--bg),var(--bg-soft));
+  border-block:1px solid rgba(255,255,255,.06) }
+.center{ text-align:center }
+.tight{ margin-top:0 }
 
-  <script>
-    // Set current year in footer (no external JS needed)
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+/* Grids */
+.grid-2{ display:grid; gap:1.5rem; grid-template-columns:1fr }
+@media (min-width:820px){ .grid-2{ grid-template-columns:1.25fr .9fr } }
+
+.features-grid{ display:grid; gap:1rem; grid-template-columns:repeat(1,minmax(0,1fr)) }
+@media (min-width:680px){ .features-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+@media (min-width:980px){ .features-grid{ grid-template-columns:repeat(4,minmax(0,1fr)) } }
+
+.feature{ background:var(--surface); border-radius:var(--radius); padding:1rem;
+  box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.06);
+  transition:transform .2s ease, box-shadow .2s ease }
+.feature:hover{ transform:translateY(-4px); box-shadow:0 15px 40px rgba(0,201,255,.2) }
+.icon{ font-size:1.5rem; margin-bottom:.25rem }
+
+/* Cards / callouts */
+.card{ background:var(--surface); border-radius:var(--radius); padding:1rem;
+  box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.06) }
+.callout{ border-left:4px solid var(--accent) }
+
+/* Buttons */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:.
