@@ -93,4 +93,44 @@ img{ max-width:100%; height:auto; display:block }
 
 /* Buttons */
 .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-  padding:.
+  padding:.75rem 1rem; border-radius:12px;
+  border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--ink);
+  font-weight:600; cursor:pointer;
+  transition:.15s transform ease,.15s background ease,.15s border-color ease }
+.btn:hover{ transform:translateY(-1px); text-decoration:none }
+.btn:focus-visible{ outline:2px solid var(--ring); outline-offset:2px }
+.btn-small{ padding:.5rem .75rem; font-weight:600 }
+.btn-primary{ background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  border-color:transparent; color:#000; }
+.btn-primary:hover{ filter:brightness(1.1) }
+.btn-outline{ background:transparent; border-color:var(--accent);
+  color:var(--accent); }
+.btn-outline:hover{ background:var(--accent); color:#000 }
+
+/* Lists */
+.checklist{ padding-left:1.2rem }
+.checklist li{ margin:.35rem 0 }
+.linklist{ list-style:none; padding:0; margin:0 }
+.linklist li{ margin:.35rem 0 }
+
+/* Mini Form */
+.mini-form{ background:var(--surface); border-radius:var(--radius); padding:1rem;
+  box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.06) }
+.mini-form label{ display:grid; gap:.4rem; margin:.6rem 0 }
+.mini-form input,.mini-form textarea{
+  width:100%; padding:.7rem .8rem; border-radius:10px;
+  border:1px solid rgba(255,255,255,.18);
+  background:#11161d; color:var(--ink);
+}
+.mini-form input:focus,.mini-form textarea:focus{
+  outline:2px solid var(--ring); outline-offset:2px }
+.form-note{ color:var(--muted); font-size:.9rem; margin:.5rem 0 0 }
+
+/* Footer */
+.site-footer{ border-top:1px solid rgba(255,255,255,.06); background:var(--bg-soft) }
+.footer-grid{ display:flex; align-items:flex-start; justify-content:space-between;
+  gap:1rem; padding:1.25rem 0; flex-wrap:wrap }
+.site-footer nav{ display:flex; gap:1rem; flex-wrap:wrap }
+.site-footer nav a:hover{ color:var(--accent) }
+.legal{ text-align:center; color:var(--muted); font-size:.9rem; padding:.75rem 0 .9rem }
+.muted{ color:var(--muted) }
