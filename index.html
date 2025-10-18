@@ -4,161 +4,104 @@
   <meta charset="utf-8" />
   <title>Archaeology Records — Thunder Bunnies Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Explore, preserve, and share archaeological site records — now with a Thunder Bunnies inspired design." />
+  <meta name="description" content="A bright Thunder Bunnies–inspired archaeology archive — explore, preserve, and share." />
   <link rel="preload" href="styles.css" as="style" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
-  <meta property="og:title" content="Archaeology Records" />
-  <meta property="og:description" content="Explore, preserve, and share archaeological site records." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://thunderbunnies.github.io/ArchaeologyRecords/" />
 </head>
-
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Header / Navigation -->
-  <header class="site-header" role="banner">
+  <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="./" aria-label="Archaeology Records home">
-        <span class="brand-mark" aria-hidden="true">⚡</span>
-        Archaeology Records
-      </a>
-      <nav class="menu" aria-label="Primary">
+      <a class="brand" href="./"><span class="brand-mark">⚡</span>Archaeology Records</a>
+      <nav class="menu">
         <a href="#about">About</a>
         <a href="#features">Features</a>
         <a href="#contribute">Contribute</a>
-        <a class="btn btn-small" href="records.html">Browse Records</a>
+        <a class="btn btn-small" href="records.html">Browse</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero">
     <div class="container hero-inner">
       <h1>Explore, Preserve, Share</h1>
-      <p class="lead">
-        A bright new way to browse and contribute archaeological site records — inspired by the energy of Thunder Bunnies.
-      </p>
+      <p class="lead">Browse and contribute archaeological records in a light pink Thunder Bunnies theme — energetic, friendly, and fun.</p>
       <div class="cta-group">
         <a class="btn btn-primary" href="records.html">Browse Records</a>
         <a class="btn btn-outline" href="#contribute">Add a Record</a>
       </div>
     </div>
-    <div class="hero-pattern" aria-hidden="true"></div>
   </section>
 
-  <main id="main" tabindex="-1">
-    <!-- About Section -->
+  <main id="main">
     <section id="about" class="section">
       <div class="container grid-2">
         <div>
           <h2>Why this archive exists</h2>
-          <p>
-            Archaeological information is often scattered in reports and local archives. This project collects site data in one
-            digital hub to help preserve, search, and share knowledge.
-          </p>
+          <p>This project collects archaeological site records to preserve local and regional heritage in a shared, digital format.</p>
           <ul class="checklist">
-            <li>Long-term preservation of site data</li>
-            <li>Fast, searchable, mobile-friendly interface</li>
-            <li>Open community contributions</li>
+            <li>Preserves archaeological data</li>
+            <li>Accessible and community-driven</li>
+            <li>Open source on GitHub</li>
           </ul>
         </div>
         <div class="card callout">
-          <h3 class="tight">Quick links</h3>
+          <h3>Quick links</h3>
           <ul class="linklist">
             <li><a href="records.html">Browse all records →</a></li>
             <li><a href="#contribute">Submit a new record →</a></li>
-            <li><a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank" rel="noopener">GitHub repository →</a></li>
+            <li><a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank">GitHub Repository →</a></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="section alt">
       <div class="container">
         <h2 class="center">What you can do</h2>
         <div class="features-grid">
-          <div class="feature">
-            <div class="icon">🔎</div>
-            <h3>Search & Filter</h3>
-            <p>Find sites by name, location, or keywords. Quick and intuitive filtering tools are built in.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">🧭</div>
-            <h3>Browse Records</h3>
-            <p>Explore all recorded archaeological sites through a clean, responsive interface.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">📥</div>
-            <h3>Add New Entries</h3>
-            <p>Submit your own archaeological data directly to the collection.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">🌩️</div>
-            <h3>Lightning-Fast Updates</h3>
-            <p>All updates deploy instantly on GitHub Pages — keeping everything current and collaborative.</p>
-          </div>
+          <div class="feature"><div class="icon">🔎</div><h3>Search</h3><p>Find records instantly.</p></div>
+          <div class="feature"><div class="icon">🧭</div><h3>Browse</h3><p>Explore all site data.</p></div>
+          <div class="feature"><div class="icon">📥</div><h3>Add</h3><p>Contribute new entries easily.</p></div>
+          <div class="feature"><div class="icon">🌩️</div><h3>Powered by Thunder Bunnies</h3><p>Playful, fast, and open source.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- Contribute Section -->
     <section id="contribute" class="section">
       <div class="container grid-2">
         <div>
           <h2>Contribute a record</h2>
-          <p>
-            Have a site to add? Enter its name, location, and context. Contribute through the form or the GitHub repository.
-          </p>
+          <p>Use the simple form below or open a GitHub issue to suggest a new site record.</p>
           <div class="cta-group">
-            <a class="btn btn-primary" href="records.html#add">Go to Add Record</a>
-            <a class="btn btn-outline" href="https://github.com/thunderbunnies/ArchaeologyRecords/issues/new" target="_blank" rel="noopener">Open an Issue</a>
+            <a class="btn btn-outline" href="https://github.com/thunderbunnies/ArchaeologyRecords/issues/new" target="_blank">Submit via GitHub</a>
           </div>
         </div>
-
-        <form class="mini-form" onsubmit="event.preventDefault(); alert('This demo form is static. Link it to your real submission form.');">
+        <form class="mini-form" onsubmit="event.preventDefault();alert('Demo only — link your real form here!');">
           <h3>Quick mock form</h3>
-          <label>
-            Site name
-            <input type="text" placeholder="e.g., Fort Shantok" required />
-          </label>
-          <label>
-            Location
-            <input type="text" placeholder="Town, State" required />
-          </label>
-          <label>
-            Description
-            <textarea rows="4" placeholder="Brief context and significance"></textarea>
-          </label>
-          <button class="btn btn-primary" type="submit">Preview submission</button>
-          <p class="form-note">Tip: Replace this form with your actual submission workflow.</p>
+          <label>Site name <input type="text" placeholder="e.g., Fort Shantok" required /></label>
+          <label>Location <input type="text" placeholder="Town, State" required /></label>
+          <label>Description <textarea rows="4" placeholder="Brief context and significance"></textarea></label>
+          <button class="btn btn-primary" type="submit">Preview</button>
         </form>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div>
-        <span class="brand-mark" aria-hidden="true">⚡</span>
-        <strong>Archaeology Records</strong>
-        <p class="muted">An open, lightning-fast record hub — by Thunder Bunnies.</p>
-      </div>
-      <nav aria-label="Footer">
+      <div><span class="brand-mark">⚡</span><strong>Archaeology Records</strong><p class="muted">Thunder Bunnies light theme</p></div>
+      <nav>
         <a href="#about">About</a>
         <a href="#features">Features</a>
         <a href="records.html">Browse</a>
-        <a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/thunderbunnies/ArchaeologyRecords">GitHub</a>
       </nav>
     </div>
-    <div class="legal">© <span id="y"></span> Archaeology Records · Thunder Bunnies theme</div>
+    <div class="legal">© <span id="y"></span> Archaeology Records</div>
   </footer>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
 </body>
 </html>
