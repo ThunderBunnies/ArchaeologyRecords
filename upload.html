@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload • Archaeology Records</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <a class="brand" href="./">
+      <img class="brand-mark" src="ThunderBunnies.jpg" alt="ThunderBunnies logo" />
+      <span class="brand-title">Archaeology Records</span>
+    </a>
+  </header>
+
+  <!-- Main content -->
+  <main class="container">
+    <h1>Upload Records</h1>
+    <p>Provide details for your contribution below and attach files.</p>
+
+    <form class="upload-form" id="upload-form" novalidate>
+      <!-- Title -->
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" placeholder="e.g. Colonial Shipwreck Log" required>
+
+      <!-- Description -->
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" placeholder="Briefly describe the record…" rows="4" required></textarea>
+
+      <!-- Date -->
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required>
+
+      <!-- Category -->
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select a category</option>
+        <option value="Archaeological Record">Archaeological Record</option>
+        <option value="Government Record">Government Record</option>
+        <option value="Religious Record">Religious Record</option>
+        <option value="Property Record">Property Record</option>
+        <option value="Port or Maritime Record">Port or Maritime Record</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <!-- File upload -->
+      <label for="file-upload">Attach file(s):</label>
+      <input type="file" id="file-upload" name="files" multiple>
+
+      <!-- Submit -->
+      <button type="submit" class="btn upload-btn">Submit</button>
+    </form>
+
+    <div id="upload-status"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container">
+    <hr />
+    <p>© <span id="year"></span> Thunder Bunnies • Archaeology Records</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('upload-form');
+    const status = document.getElementById('upload-status');
+
+    // Simple client-side handler (no backend yet)
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Basic validation
+      if (!form.checkValidity()) {
+        status.innerHTML = '<p style="color:#c2185b;"><strong>Please fill in all required fields.</strong></p>';
+        return;
+      }
+
+      const title = document.getElementById('title').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const date = document.getElementById('date').value;
+      const category = document.getElementById('category').value;
+      const files = Array.from(document.getElementById('file-upload').files).map(f => f.name);
+
+      // Show a preview/confirmation
+      status.innerHTML = `
+        <h2>Submission preview</h2>
+        <ul>
+          <li><strong>Title:</strong> ${escapeHtml(title)}</li>
+          <li><strong>Description:</strong> ${escapeHtml(description)}</li>
+          <li><strong>Date:</strong> ${escapeHtml(date)}</li>
+          <li><strong>Category:</strong> ${escapeHtml(category)}</li>
+          <li><strong>Files:</strong> ${files.length ? files.map(escapeHtml).join(', ') : 'None'}</li>
+        </ul>
+        <p><em>(No server connected yet—this just confirms what would be sent.)</em></p>
+      `;
+
+      // Reset form
+      form.reset();
+    });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#39;");
+    }
+  </script>
+</body>
+</html>
