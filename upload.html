@@ -75,48 +75,50 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    const form = document.getElementById('upload-form');
-    const status = document.getElementById('upload-status');
+  const form = document.getElementById('upload-form');
+  const status = document.getElementById('upload-status');
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-      if (!form.checkValidity()) {
-        status.innerHTML = '<p style="color:#c2185b;"><strong>Please fill in all required fields.</strong></p>';
-        return;
-      }
-
-      const title = document.getElementById('title').value.trim();
-      const description = document.getElementById('description').value.trim();
-      const date = document.getElementById('date').value;
-      const category = document.getElementById('category').value;
-      const files = Array.from(document.getElementById('file-upload').files).map(f => f.name);
-
-      status.innerHTML = `
-        <h2>Submission preview</h2>
-        <ul>
-          <li><strong>Title:</strong> ${escapeHtml(title)}</li>
-          <li><strong>Description:</strong> ${escapeHtml(description)}</li>
-          <li><strong>Date:</strong> ${escapeHtml(date)}</li>
-          <li><strong>Category:</strong> ${escapeHtml(category)}</li>
-          <li><strong>Files:</strong> ${files.length ? files.map(escapeHtml).join(', ') : 'None'}</li>
-        </ul>
-        <p><em>(No server connected yet—this just confirms what would be sent.)</em></p>
-      `;
-
-      form.reset();
-    });
-
-    function escapeHtml(str) {
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'","&#39;");
+    if (!form.checkValidity()) {
+      status.innerHTML = '<p style="color:#c2185b;"><strong>Please fill in all required fields.</strong></p>';
+      return;
     }
-  </script>
+
+    const record = {
+      title: document.getElementById('title').value.trim(),
+      description: document.getElementById('description').value.trim(),
+      date: document.getElementById('date').value,
+      category: document.getElementById('category').value,
+      files: Array.from(document.getElementById('file-upload').files).map(f => f.name)
+      // If you later host uploads somewhere, add fileUrl here
+    };
+
+    // 1) Save locally so Browse page sees it immediately
+    const KEY = 'tb_records';
+    const all = JSON.parse(localStorage.getItem(KEY) || '[]');
+    all.push(record);
+    localStorage.setItem(KEY, JSON.stringify(all));
+
+    // 2) Offer a downloadable JSON for maintainers to merge into records.json
+    const jsonData = JSON.stringify(record, null, 2);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const filename = (record.title || 'record').replace(/\s+/g,'_') + '.json';
+
+    status.innerHTML = `
+      <h2>Submission Saved</h2>
+      <p>Your entry is now visible on <a href="./browse.html">Browse</a> (local to your browser).</p>
+      <p>You can also download the JSON to merge into <code>records.json</code> in GitHub:</p>
+      <pre>${jsonData}</pre>
+      <a class="btn upload-btn" href="${url}" download="${filename}">💾 Download JSON</a>
+    `;
+
+    form.reset();
+  });
+</script>
 </body>
 </html>
