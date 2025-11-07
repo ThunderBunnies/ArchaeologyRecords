@@ -107,7 +107,7 @@ img{ max-width:100%; height:auto; display:block }
 }
 
 .left-image img {
-  width: 150px;           /* adjust size as needed */
+  width: 80px;           /* adjust size as needed */
   height: auto;
   border-radius: 12px;    /* optional rounded corners */
 }
