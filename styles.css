@@ -100,16 +100,15 @@ img{ max-width:100%; height:auto; display:block }
 .tight{ margin-top:0 }
 
 /* ThunderBunniesImage */
-.left-image {
-  position: fixed;        /* keeps it in place as you scroll */
-  top: 20px;              /* distance from the top */
-  left: 20px;             /* distance from the left edge */
+.top-center-image {
+  text-align: center;     /* centres the content horizontally */
+  margin: 30px 0;          /* adds space above & below the image */
 }
 
-.left-image img {
-  width: 120px;           /* adjust size as needed */
-  height: auto;
-  border-radius: 12px;    /* optional rounded corners */
+.top-center-image img {
+  width: 120px;            /* choose your preferred size */
+  height: auto;            /* maintain aspect ratio */
+  display: inline-block;   /* ensures the centering works properly */
 }
 
 
