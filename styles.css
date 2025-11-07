@@ -92,3 +92,58 @@ footer { text-align: center; color: #555; }
   .brand .brand-mark { width: 95px; }
   .brand .brand-title { font-size: 1.7rem; }
 }
+/* ===== Upload Form ===== */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ffd6eb;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.upload-form label {
+  font-weight: 600;
+  color: var(--pink-deep);
+  text-align: left;
+}
+
+.upload-form input[type="text"],
+.upload-form input[type="date"],
+.upload-form select,
+.upload-form textarea,
+.upload-form input[type="file"] {
+  font-size: 1rem;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.upload-form button {
+  align-self: center;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--pink-deep);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.upload-form button:hover {
+  background-color: #9c004d;
+}
+
+#upload-status {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+  color: var(--pink-deep);
+  font-weight: 600;
+}
