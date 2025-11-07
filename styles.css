@@ -60,7 +60,7 @@ a:hover { color: var(--tb-deep-pink-2); }
 }
 
 .brand .brand-mark {
-  width: 80px;              /* adjust if you want smaller/larger */
+  width: 110px;              /* adjust if you want smaller/larger */
   height: auto;
   border-radius: 8px;       /* optional rounded corners */
 }
