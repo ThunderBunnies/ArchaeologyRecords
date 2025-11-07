@@ -99,6 +99,20 @@ img{ max-width:100%; height:auto; display:block }
 .center{ text-align:center }
 .tight{ margin-top:0 }
 
+/* ThunderBunniesImage */
+.left-image {
+  position: fixed;        /* keeps it in place as you scroll */
+  top: 20px;              /* distance from the top */
+  left: 20px;             /* distance from the left edge */
+}
+
+.left-image img {
+  width: 150px;           /* adjust size as needed */
+  height: auto;
+  border-radius: 12px;    /* optional rounded corners */
+}
+
+
 /* Grid layouts */
 .grid-2{ display:grid; gap:1.5rem; grid-template-columns:1fr }
 @media (min-width:820px){ .grid-2{ grid-template-columns:1.25fr .9fr } }
