@@ -4,120 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Archaeology Records • Thunder Bunnies</title>
-
   <link rel="stylesheet" href="styles.css" />
-
-  <style>
-    /* ===== Header with light pink background ===== */
-    .site-header {
-      background-color: #ffd6eb;     /* light pink ThunderBunnies tone */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 28px 12px;
-      flex-wrap: wrap;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* soft shadow for depth */
-    }
-
-    /* Landing page wording */
-    <section class="hero-pitch">
-      <div class="hero-content">
-        <h2>Join the Quest to Uncover the Past</h2>
-
-        <p>Calling archaeologists, history enthusiasts, detectives, students, and the public to join hands in building a living archive of our shared heritage.</p>
-
-        <p>Together, we can centralize, digitize, and explore archaeological data — from excavation logs and government archives to property deeds, tax ledgers, port records, and religious documents.</p>
-
-        <p>Help us create a community-driven digital hub where every record brings us closer to understanding our collective story.</p>
-
-        <p><strong>Discover. Contribute. Connect.</strong></p>
-
-        <a href="./register.html" class="hero-btn">Join Us</a>
-      </div>
-    </section>
-    
-    /* ===== Brand: logo + text ===== */
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      text-decoration: none;
-      color: #333;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .brand .brand-mark {
-      width: 120px;     /* logo slightly larger */
-      height: auto;
-      display: block;
-      border-radius: 8px; /* optional rounded corners */
-    }
-
-    .brand .brand-title {
-      font-weight: 800;
-      line-height: 1.1;
-      font-size: 2.2rem;
-      white-space: nowrap;
-      color: #c2185b;   /* deep pink accent */
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    }
-
-    /* ===== Main content ===== */
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 16px 12px 48px;
-    }
-
-    /* ===== Buttons ===== */
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 16px 0 0;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 10px;
-      text-decoration: none;
-      border: 1px solid #c2185b;
-      background-color: #ffe6f2;
-      color: #c2185b;
-      font-size: 1.1rem;
-      font-weight: 600;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .btn:hover {
-      background-color: #c2185b;
-      color: white;
-    }
-
-    /* ===== Footer ===== */
-    footer {
-      text-align: center;
-    }
-
-    /* ===== Responsive tweaks ===== */
-    @media (max-width: 600px) {
-      .brand .brand-mark {
-        width: 60px;
-      }
-
-      .brand .brand-title {
-        font-size: 1.7rem;
-      }
-    }
-  </style>
 </head>
-<body>
 
-  <!-- Centered logo + title in pink header -->
+<body>
+  <!-- Header -->
   <header class="site-header" role="banner">
     <a class="brand" href="./" aria-label="Archaeology Records Home">
       <img class="brand-mark" src="ThunderBunnies.jpg" alt="ThunderBunnies logo" />
@@ -125,16 +16,34 @@
     </a>
   </header>
 
+  <!-- Hero pitch -->
+  <section class="hero-pitch">
+    <div class="hero-content">
+      <h2>Join the Quest to Uncover the Past</h2>
+
+      <p>Calling archaeologists, history enthusiasts, detectives, students, and the public to join hands in building a living archive of our shared heritage.</p>
+
+      <p>Together, we can centralize, digitize, and explore archaeological data — from excavation logs and government archives to property deeds, tax ledgers, port records, and religious documents.</p>
+
+      <p>Help us create a community-driven digital hub where every record brings us closer to understanding our collective story.</p>
+
+      <p><strong>Discover. Contribute. Connect.</strong></p>
+
+      <a href="./register.html" class="hero-btn">Join Us</a>
+    </div>
+  </section>
+
+  <!-- Main content -->
   <main class="container" role="main">
     <h1>Welcome</h1>
-    <p>
-      Calling archaeologists, history enthusiasts, detectives, students, and the public to join hands in building a living archive of our shared heritage.
-      Together, we can centralize, digitize, and explore archaeological data — from excavation logs and government archives to property deeds, tax ledgers, port records, and religious documents.
 
-      Help us create a community-driven digital hub where every record brings us closer to understanding our collective story.
-      Discover. Contribute. Connect. 
-      Use the navigation or buttons below to get started.
-    </p>
+    <p>Calling archaeologists, history enthusiasts, detectives, students, and the public to join hands in building a living archive of our shared heritage.</p>
+
+    <p>Together, we can centralize, digitize, and explore archaeological data — from excavation logs and government archives to property deeds, tax ledgers, port records, and religious documents.</p>
+
+    <p>Help us create a community-driven digital hub where every record brings us closer to understanding our collective story.</p>
+
+    <p><strong>Discover. Contribute. Connect.</strong></p>
 
     <div class="actions">
       <a class="btn" href="./register.html">Register</a>
@@ -147,6 +56,7 @@
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="container" role="contentinfo">
     <hr />
     <p>© <span id="year"></span> Thunder Bunnies • Archaeology Records</p>
