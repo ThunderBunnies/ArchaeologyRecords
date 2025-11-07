@@ -94,4 +94,51 @@ footer {
   .brand .brand-title {
     font-size: 1.5rem;
   }
+  /* ===== Hero Pitch Section ===== */
+.hero-pitch {
+  background-color: #ffd6eb;     /* ThunderBunnies light pink */
+  text-align: center;
+  padding: 60px 20px;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-pitch h2 {
+  color: #c2185b;               /* deep pink accent */
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.hero-pitch p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 18px 0;
+  color: #333;
+}
+
+.hero-pitch strong {
+  color: #c2185b;
+}
+
+.hero-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #c2185b;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.hero-btn:hover {
+  background-color: #9c004d;    /* slightly darker pink on hover */
+}
+
 }
