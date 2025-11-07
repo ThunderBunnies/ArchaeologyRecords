@@ -1,102 +1,64 @@
-/* ===== ThunderBunnies Simple Styles ===== */
+/* ===============================
+   ThunderBunnies Theme Styles
+   =============================== */
 
-/* Global theme colors */
+/* Colors */
 :root {
   --pink-light: #ffd6eb;
   --pink-deep:  #c2185b;
   --text:       #333;
 }
 
-/* Basic reset */
+/* Base */
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
   color: var(--text);
   background-color: #fffafc;
   text-align: center;
+  line-height: 1.6;
 }
 
-/* ----- Header ----- */
+/* ===== Header ===== */
 .site-header {
   background-color: var(--pink-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 12px;
+  flex-wrap: wrap;
+  text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 24px 12px;
 }
 
-/* Brand (logo + title) */
+/* Logo + title */
 .brand {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
   text-decoration: none;
   color: var(--text);
-}
-
-/* Logo image */
-.brand .brand-mark {
-  width: 150px;   /* <— change this number to resize the logo */
-  height: auto;
-}
-
-/* Title text */
-.brand .brand-title {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--pink-deep);
-}
-
-/* ----- Main content ----- */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px;
-  text-align: left;
-}
-
-/* Buttons */
-.actions {
-  display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin: 24px 0;
 }
 
-.btn {
-  padding: 10px 18px;
-  border: 1px solid var(--pink-deep);
-  border-radius: 10px;
+.brand .brand-mark {
+  width: 130px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.brand .brand-title {
+  font-weight: 800;
+  font-size: 2.2rem;
+  white-space: nowrap;
   color: var(--pink-deep);
-  background-color: #ffe6f2;
-  text-decoration: none;
-  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-.btn:hover {
-  background-color: var(--pink-deep);
-  color: white;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  margin-top: 40px;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-/* Responsive (for smaller screens) */
-@media (max-width: 600px) {
-  .brand .brand-mark {
-    width: 90px;
-  }
-  .brand .brand-title {
-    font-size: 1.5rem;
-  }
-  /* ===== Hero Pitch Section ===== */
+/* ===== Hero Pitch ===== */
 .hero-pitch {
-  background-color: #ffd6eb;     /* ThunderBunnies light pink */
+  background-color: var(--pink-light);
   text-align: center;
   padding: 60px 20px;
   border-bottom: 2px solid rgba(0,0,0,0.05);
@@ -108,7 +70,7 @@ footer {
 }
 
 .hero-pitch h2 {
-  color: #c2185b;               /* deep pink accent */
+  color: var(--pink-deep);
   font-size: 2.2rem;
   margin-bottom: 20px;
 }
@@ -117,18 +79,17 @@ footer {
   font-size: 1.2rem;
   line-height: 1.8;
   margin: 18px 0;
-  color: #333;
 }
 
 .hero-pitch strong {
-  color: #c2185b;
+  color: var(--pink-deep);
 }
 
 .hero-btn {
   display: inline-block;
   margin-top: 30px;
   padding: 12px 24px;
-  background-color: #c2185b;
+  background-color: var(--pink-deep);
   color: #fff;
   border-radius: 10px;
   text-decoration: none;
@@ -138,6 +99,51 @@ footer {
 }
 
 .hero-btn:hover {
-  background-color: #9c004d;    /* slightly darker pink on hover */
+  background-color: #9c004d;
 }
+
+/* ===== Main Content ===== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px 12px 48px;
+  text-align: left;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0 0;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid var(--pink-deep);
+  background-color: #ffe6f2;
+  color: var(--pink-deep);
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--pink-deep);
+  color: white;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .brand .brand-mark { width: 90px; }
+  .brand .brand-title { font-size: 1.7rem; }
 }
