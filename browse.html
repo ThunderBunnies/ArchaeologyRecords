@@ -31,21 +31,23 @@
       <button class="btn" id="refresh">Refresh</button>
     </div>
 
-    <!-- Records table -->
-    <table class="records-table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Category</th>
-          <th>File</th>
-        </tr>
-      </thead>
-      <tbody id="record-body">
-        <tr><td colspan="5">Loading…</td></tr>
-      </tbody>
-    </table>
+    <!-- Records table (wrapped for sticky header + clear rows) -->
+    <div class="table-wrap">
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>File</th>
+          </tr>
+        </thead>
+        <tbody id="record-body">
+          <tr><td colspan="5">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <p id="count" style="color:#555;"></p>
 
