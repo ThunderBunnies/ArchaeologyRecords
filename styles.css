@@ -1,188 +1,97 @@
-/* ============================
-   ThunderBunnies Global Theme
-   ============================ */
+/* ===== ThunderBunnies Simple Styles ===== */
+
+/* Global theme colors */
 :root {
-  --tb-light-pink: #ffd6eb;
-  --tb-deep-pink:  #c2185b;
-  --tb-deep-pink-2:#9c004d;
-  --text:          #333333;
-  --bg:            #fffafc;
-  --border:        rgba(0, 0, 0, 0.12);
-  --shadow:        rgba(0, 0, 0, 0.1);
+  --pink-light: #ffd6eb;
+  --pink-deep:  #c2185b;
+  --text:       #333;
 }
 
-/* Basic reset (lightweight) */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-img { max-width: 100%; height: auto; display: block; }
-
-/* Typography & base */
+/* Basic reset */
 body {
-  background-color: var(--bg);
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
   color: var(--text);
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1, h2, h3 {
-  color: var(--tb-deep-pink);
-  line-height: 1.2;
-  margin: 0.5em 0 0.4em;
-}
-p { margin: 0.5em 0 1em; }
-a { color: var(--tb-deep-pink); text-decoration: none; }
-a:hover { color: var(--tb-deep-pink-2); }
-
-/* ============================
-   Header / Brand
-   ============================ */
-.site-header {
-  background-color: var(--tb-light-pink);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 28px 12px;
-  flex-wrap: wrap;
+  background-color: #fffafc;
   text-align: center;
-  box-shadow: 0 2px 6px var(--shadow);
 }
 
+/* ----- Header ----- */
+.site-header {
+  background-color: var(--pink-light);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 24px 12px;
+}
+
+/* Brand (logo + title) */
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  color: #333;
-  text-decoration: none;
-  flex-wrap: wrap;
   justify-content: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--text);
 }
 
+/* Logo image */
 .brand .brand-mark {
-  width: 110px;              /* adjust if you want smaller/larger */
+  width: 130px;   /* <— change this number to resize the logo */
   height: auto;
-  border-radius: 8px;       /* optional rounded corners */
 }
 
+/* Title text */
 .brand .brand-title {
+  font-size: 2rem;
   font-weight: 800;
-  line-height: 1.1;
-  font-size: 2.2rem;        /* title size */
-  white-space: nowrap;
-  color: var(--tb-deep-pink);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.08);
+  color: var(--pink-deep);
 }
 
-/* ============================
-   Layout / Containers
-   ============================ */
+/* ----- Main content ----- */
 .container {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 16px 12px 48px;
+  padding: 24px;
+  text-align: left;
 }
 
-/* Section spacing */
-section { margin: 28px 0; }
-
-/* Horizontal rule */
-hr {
-  border: none;
-  border-top: 1px solid var(--border);
+/* Buttons */
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
   margin: 24px 0;
 }
 
-/* ============================
-   Buttons / Actions
-   ============================ */
-.actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 16px 0 0;
-  justify-content: center;
-}
-
 .btn {
-  display: inline-block;
   padding: 10px 18px;
+  border: 1px solid var(--pink-deep);
   border-radius: 10px;
-  border: 1px solid var(--tb-deep-pink);
+  color: var(--pink-deep);
   background-color: #ffe6f2;
-  color: var(--tb-deep-pink);
-  font-size: 1.05rem;
+  text-decoration: none;
   font-weight: 600;
-  transition: all 0.2s ease-in-out;
 }
+
 .btn:hover {
-  background-color: var(--tb-deep-pink);
-  color: #ffffff;
+  background-color: var(--pink-deep);
+  color: white;
 }
 
-/* Button focus visible (accessibility) */
-.btn:focus-visible,
-a:focus-visible,
-button:focus-visible {
-  outline: 3px solid #000;
-  outline-offset: 2px;
-}
-
-/* ============================
-   Footer
-   ============================ */
+/* Footer */
 footer {
   text-align: center;
+  margin-top: 40px;
   color: #555;
+  font-size: 0.9rem;
 }
 
-/* ============================
-   Tables (optional styling)
-   ============================ */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 12px 0 24px;
-}
-th, td {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-  text-align: left;
-}
-th {
-  color: var(--tb-deep-pink);
-  font-weight: 700;
-}
-
-/* ============================
-   Lists (clean spacing)
-   ============================ */
-ul, ol { padding-left: 1.25rem; }
-li { margin: 0.3em 0; }
-
-/* ============================
-   Utilities (optional helpers)
-   ============================ */
-.center { text-align: center; }
-.hidden { display: none !important; }
-.mt-0 { margin-top: 0 !important; }
-.mb-0 { margin-bottom: 0 !important; }
-
-/* ============================
-   Responsive tweaks
-   ============================ */
-@media (max-width: 800px) {
-  .brand .brand-title { font-size: 2rem; }
-}
-
+/* Responsive (for smaller screens) */
 @media (max-width: 600px) {
-  .brand .brand-mark { width: 60px; }
-  .brand .brand-title { font-size: 1.7rem; }
+  .brand .brand-mark {
+    width: 90px;
+  }
+  .brand .brand-title {
+    font-size: 1.5rem;
+  }
 }
-
-/* ============================
-   Legacy cleanup (optional)
-   If you previously had floats for images or brand,
-   these lines neutralize them.
-   ============================ */
-.brand, .brand .brand-mark, .brand .brand-title { float: none !important; }
