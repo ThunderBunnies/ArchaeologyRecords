@@ -94,17 +94,4 @@ footer {
   .brand .brand-title {
     font-size: 1.5rem;
   }
-/* Force the brand image to the size we want */
-header.site-header a.brand img.brand-mark {
-  width: 160px !important;   /* ← adjust this number to the size you want */
-  height: auto !important;
-  display: block;
-}
-
-/* Keep the brand horizontally aligned */
-header.site-header a.brand {
-  display: inline-flex;
-  align-items: center;        /* try 'baseline' if you want the text baseline aligned */
-  gap: 14px;
-}
 }
