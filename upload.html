@@ -22,36 +22,42 @@
     <p>Provide details for your contribution below and attach files.</p>
 
     <form class="upload-form" id="upload-form" novalidate>
-      <!-- Title -->
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" placeholder="e.g. Colonial Shipwreck Log" required>
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" placeholder="e.g. Colonial Shipwreck Log" required>
+      </div>
 
-      <!-- Description -->
-      <label for="description">Description:</label>
-      <textarea id="description" name="description" placeholder="Briefly describe the record…" rows="4" required></textarea>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" placeholder="Briefly describe the record…" rows="4" required></textarea>
+      </div>
 
-      <!-- Date -->
-      <label for="date">Date:</label>
-      <input type="date" id="date" name="date" required>
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+      </div>
 
-      <!-- Category -->
-      <label for="category">Category:</label>
-      <select id="category" name="category" required>
-        <option value="">Select a category</option>
-        <option value="Archaeological Record">Archaeological Record</option>
-        <option value="Government Record">Government Record</option>
-        <option value="Religious Record">Religious Record</option>
-        <option value="Property Record">Property Record</option>
-        <option value="Port or Maritime Record">Port or Maritime Record</option>
-        <option value="Other">Other</option>
-      </select>
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+          <option value="">Select a category</option>
+          <option value="Archaeological Record">Archaeological Record</option>
+          <option value="Government Record">Government Record</option>
+          <option value="Religious Record">Religious Record</option>
+          <option value="Property Record">Property Record</option>
+          <option value="Port or Maritime Record">Port or Maritime Record</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
 
-      <!-- File upload -->
-      <label for="file-upload">Attach file(s):</label>
-      <input type="file" id="file-upload" name="files" multiple>
+      <div class="form-group">
+        <label for="file-upload">Attach file(s):</label>
+        <input type="file" id="file-upload" name="files" multiple>
+      </div>
 
-      <!-- Submit -->
-      <button type="submit" class="btn upload-btn">Submit</button>
+      <div class="form-group" style="text-align:center;">
+        <button type="submit" class="btn upload-btn">Submit</button>
+      </div>
     </form>
 
     <div id="upload-status"></div>
@@ -69,11 +75,9 @@
     const form = document.getElementById('upload-form');
     const status = document.getElementById('upload-status');
 
-    // Simple client-side handler (no backend yet)
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Basic validation
       if (!form.checkValidity()) {
         status.innerHTML = '<p style="color:#c2185b;"><strong>Please fill in all required fields.</strong></p>';
         return;
@@ -85,7 +89,6 @@
       const category = document.getElementById('category').value;
       const files = Array.from(document.getElementById('file-upload').files).map(f => f.name);
 
-      // Show a preview/confirmation
       status.innerHTML = `
         <h2>Submission preview</h2>
         <ul>
@@ -98,7 +101,6 @@
         <p><em>(No server connected yet—this just confirms what would be sent.)</em></p>
       `;
 
-      // Reset form
       form.reset();
     });
 
