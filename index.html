@@ -2,113 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Archaeology Records — Thunder Bunnies Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A bright Thunder Bunnies–inspired archaeology archive — explore, preserve, and share." />
-  <link rel="preload" href="styles.css" as="style" />
+  <title>Archaeology Records • Thunder Bunnies</title>
+
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ===== Header with light pink background ===== */
+    .site-header {
+      background-color: #ffd6eb;     /* light pink ThunderBunnies tone */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 28px 12px;
+      flex-wrap: wrap;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* soft shadow for depth */
+    }
+
+    /* ===== Brand: logo + text ===== */
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: #333;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .brand .brand-mark {
+      width: 80px;     /* logo slightly larger */
+      height: auto;
+      display: block;
+      border-radius: 8px; /* optional rounded corners */
+    }
+
+    .brand .brand-title {
+      font-weight: 800;
+      line-height: 1.1;
+      font-size: 2.2rem;
+      white-space: nowrap;
+      color: #c2185b;   /* deep pink accent */
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* ===== Main content ===== */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px 12px 48px;
+    }
+
+    /* ===== Buttons ===== */
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 16px 0 0;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid #c2185b;
+      background-color: #ffe6f2;
+      color: #c2185b;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      background-color: #c2185b;
+      color: white;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+    }
+
+    /* ===== Responsive tweaks ===== */
+    @media (max-width: 600px) {
+      .brand .brand-mark {
+        width: 60px;
+      }
+
+      .brand .brand-title {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="./">
-        <img class="brand-mark" src="Thunderbunnies.jpg" alt="ThunderBunnies Logo">
-        Archaeology Records
-      </a>
-      <nav class="menu">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#contribute">Contribute</a>
-        <a class="btn btn-small" href="records.html">Browse</a>
-      </nav>
-    </div>
+  <!-- Centered logo + title in pink header -->
+  <header class="site-header" role="banner">
+    <a class="brand" href="./" aria-label="Archaeology Records Home">
+      <img class="brand-mark" src="images/ThunderBunnies.jpg" alt="ThunderBunnies logo" />
+      <span class="brand-title">Archaeology Records</span>
+    </a>
   </header>
 
-  <div class="top-center-image">
-    <img src="ThunderBunnies.jpg" alt="ThunderBunnies" />
-  </div>
+  <main class="container" role="main">
+    <h1>Welcome</h1>
+    <p>
+      Explore shipwreck and archaeology records curated by the Thunder Bunnies project.
+      Use the navigation or buttons below to get started.
+    </p>
 
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>Explore, Preserve, Share</h1>
-      <p class="lead">Browse and contribute archaeological records in a light pink Thunder Bunnies theme — energetic, friendly, and fun.</p>
-      <div class="cta-group">
-        <a class="btn btn-primary" href="records.html">Browse Records</a>
-        <a class="btn btn-outline" href="#contribute">Add a Record</a>
-      </div>
+    <div class="actions">
+      <a class="btn" href="./register.html">Register</a>
+      <a class="btn" href="./contribute.html">Contribute</a>
     </div>
-  </section>
 
-  <main id="main">
-    <section id="about" class="section">
-      <div class="container grid-2">
-        <div>
-          <h2>Why this archive exists</h2>
-          <p>This project collects archaeological site records to preserve local and regional heritage in a shared, digital format.</p>
-          <ul class="checklist">
-            <li>Preserves archaeological data</li>
-            <li>Accessible and community-driven</li>
-            <li>Open source on GitHub</li>
-          </ul>
-        </div>
-        <div class="card callout">
-          <h3>Quick links</h3>
-          <ul class="linklist">
-            <li><a href="records.html">Browse all records →</a></li>
-            <li><a href="#contribute">Submit a new record →</a></li>
-            <li><a href="https://github.com/thunderbunnies/ArchaeologyRecords" target="_blank">GitHub Repository →</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="features" class="section alt">
-      <div class="container">
-        <h2 class="center">What you can do</h2>
-        <div class="features-grid">
-          <div class="feature"><div class="icon">🔎</div><h3>Search</h3><p>Find records instantly.</p></div>
-          <div class="feature"><div class="icon">🧭</div><h3>Browse</h3><p>Explore all site data.</p></div>
-          <div class="feature"><div class="icon">📥</div><h3>Add</h3><p>Contribute new entries easily.</p></div>
-          <div class="feature"><div class="icon">🌩️</div><h3>Powered by Thunder Bunnies</h3><p>Playful, fast, and open source.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contribute" class="section">
-      <div class="container grid-2">
-        <div>
-          <h2>Contribute a record</h2>
-          <p>Use the simple form below or open a GitHub issue to suggest a new site record.</p>
-          <div class="cta-group">
-            <a class="btn btn-outline" href="https://github.com/thunderbunnies/ArchaeologyRecords/issues/new" target="_blank">Submit via GitHub</a>
-          </div>
-        </div>
-        <form class="mini-form" onsubmit="event.preventDefault();alert('Demo only — link your real form here!');">
-          <h3>Quick mock form</h3>
-          <label>Site name <input type="text" placeholder="e.g., Fort Shantok" required /></label>
-          <label>Location <input type="text" placeholder="Town, State" required /></label>
-          <label>Description <textarea rows="4" placeholder="Brief context and significance"></textarea></label>
-          <button class="btn btn-primary" type="submit">Preview</button>
-        </form>
-      </div>
+    <section>
+      <h2>Latest</h2>
+      <p>Replace this placeholder with your latest updates or featured datasets.</p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div><span class="brand-mark">⚡</span><strong>Archaeology Records</strong><p class="muted">Thunder Bunnies light theme</p></div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="records.html">Browse</a>
-        <a href="https://github.com/thunderbunnies/ArchaeologyRecords">GitHub</a>
-      </nav>
-    </div>
-    <div class="legal">© <span id="y"></span> Archaeology Records</div>
+  <footer class="container" role="contentinfo">
+    <hr />
+    <p>© <span id="year"></span> Thunder Bunnies • Archaeology Records</p>
   </footer>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
