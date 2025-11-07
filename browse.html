@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Browse • Archaeology Records</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <a class="brand" href="./">
+      <img class="brand-mark" src="ThunderBunnies.jpg" alt="ThunderBunnies logo" />
+      <span class="brand-title">Archaeology Records</span>
+    </a>
+  </header>
+
+  <!-- Main content -->
+  <main class="container">
+    <h1>Browse Existing Records</h1>
+    <p>Explore archaeological records shared by the Thunder Bunnies community.</p>
+
+    <!-- Controls -->
+    <div class="browse-controls">
+      <input type="text" id="search" placeholder="Search by title or description...">
+      <select id="filter">
+        <option value="">All Categories</option>
+      </select>
+      <button class="btn" id="applyFilter">Filter</button>
+      <button class="btn" id="refresh">Refresh</button>
+    </div>
+
+    <!-- Records table -->
+    <table class="records-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Category</th>
+          <th>File</th>
+        </tr>
+      </thead>
+      <tbody id="record-body">
+        <tr><td colspan="5">Loading…</td></tr>
+      </tbody>
+    </table>
+
+    <p id="count" style="color:#555;"></p>
+
+    <!-- Back button -->
+    <div class="actions">
+      <a class="btn" href="./index.html">⬅ Back to Main Page</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container">
+    <hr />
+    <p>© <span id="year"></span> Thunder Bunnies • Archaeology Records</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const DOM = {
+      search: document.getElementById('search'),
+      filter: document.getElementById('filter'),
+      apply: document.getElementById('applyFilter'),
+      refresh: document.getElementById('refresh'),
+      body: document.getElementById('record-body'),
+      count: document.getElementById('count'),
+    };
+
+    let records = [];
+    let headers = [];
+
+    const JSON_URL = 'records.json'; // same folder as this page
+
+    function toKeyMap(obj) {
+      // build a case-insensitive getter for the object keys
+      const map = {};
+      Object.keys(obj || {}).forEach(k => map[k.toLowerCase()] = obj[k]);
+      return name => map[(name || '').toLowerCase()];
+    }
+
+    async function loadRecords() {
+      DOM.body.innerHTML = `<tr><td colspan="5">Loading…</td></tr>`;
+      DOM.count.textContent = '';
+      try {
+        const res = await fetch(`${JSON_URL}?_=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Fetch failed');
+        const data = await res.json();
+        records = Array.isArray(data) ? data : [];
+        buildCategoryOptions(records);
+        render();
+      } catch (err) {
+        console.error(err);
+        DOM.body.innerHTML = `<tr><td colspan="5">Error loading records.json. Make sure the file exists and is valid JSON.</td></tr>`;
+      }
+    }
+
+    function buildCategoryOptions(data) {
+      const cats = new Set();
+      data.forEach(row => {
+        const g = toKeyMap(row);
+        const cat = (g('category') || '').toString().trim();
+        if (cat) cats.add(cat);
+      });
+      const options = ['<option value="">All Categories</option>']
+        .concat(Array.from(cats).sort().map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`));
+      DOM.filter.innerHTML = options.join('');
+    }
+
+    function render() {
+      const query = DOM.search.value.trim().toLowerCase();
+      const filter = DOM.filter.value;
+
+      const filtered = records.filter(row => {
+        const g = toKeyMap(row);
+        const hay = `${g('title') || ''} ${g('description') || ''}`.toLowerCase();
+        const inSearch = query ? hay.includes(query) : true;
+        const inCat = filter ? (g('category') || '') === filter : true;
+        return inSearch && inCat;
+      });
+
+      if (filtered.length === 0) {
+        DOM.body.innerHTML = `<tr><td colspan="5">No records found.</td></tr>`;
+        DOM.count.textContent = `0 records shown`;
+        return;
+      }
+
+      DOM.body.innerHTML = filtered.map(row => {
+        const g = toKeyMap(row);
+        const title = escapeHtml(g('title') || '');
+        const desc = escapeHtml(g('description') || '');
+        const date = escapeHtml(g('date') || '');
+        const cat  = escapeHtml(g('category') || '');
+        const url  = (g('fileUrl') || g('file') || g('link') || '').toString().trim();
+
+        const fileCell = url
+          ? `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">Open</a>`
+          : '';
+
+        return `<tr>
+          <td>${title}</td>
+          <td>${desc}</td>
+          <td>${date}</td>
+          <td>${cat}</td>
+          <td>${fileCell}</td>
+        </tr>`;
+      }).join('');
+
+      DOM.count.textContent = `${filtered.length} record${filtered.length === 1 ? '' : 's'} shown`;
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#39;");
+    }
+    function escapeAttr(s) {
+      // safe enough for href attribute
+      return String(s).replace(/"/g, '&quot;');
+    }
+
+    // Events
+    DOM.apply.addEventListener('click', render);
+    DOM.refresh.addEventListener('click', loadRecords);
+    DOM.search.addEventListener('input', render);
+    DOM.filter.addEventListener('change', render);
+
+    // Go!
+    loadRecords();
+  </script>
+</body>
+</html>
