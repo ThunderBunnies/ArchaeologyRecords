@@ -106,7 +106,7 @@ img{ max-width:100%; height:auto; display:block }
 }
 
 .top-center-image img {
-  width: 120px;            /* choose your preferred size */
+  width: 100px;            /* choose your preferred size */
   height: auto;            /* maintain aspect ratio */
   display: inline-block;   /* ensures the centering works properly */
 }
