@@ -1,149 +1,94 @@
-/* ===============================
-   ThunderBunnies Theme Styles
-   =============================== */
+/* ===== ThunderBunnies minimal theme ===== */
 
 /* Colors */
 :root {
   --pink-light: #ffd6eb;
   --pink-deep:  #c2185b;
   --text:       #333;
+  --bg:         #fffafc;
 }
 
 /* Base */
+html, body { margin: 0; padding: 0; }
 body {
-  margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
   color: var(--text);
-  background-color: #fffafc;
-  text-align: center;
   line-height: 1.6;
+  text-align: center;         /* center header text by default */
 }
 
-/* ===== Header ===== */
+/* Header */
 .site-header {
-  background-color: var(--pink-light);
+  background: var(--pink-light);
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  padding: 24px 12px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 28px 12px;
-  flex-wrap: wrap;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Logo + title */
+/* Brand (logo + title) */
 .brand {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
+  gap: 14px;
+  color: inherit;
   text-decoration: none;
-  color: var(--text);
-  flex-wrap: wrap;
 }
 
 .brand .brand-mark {
-  width: 130px;
+  width: 130px;               /* ← change this number to resize the logo */
   height: auto;
-  border-radius: 8px;
+  border-radius: 8px;         /* optional */
+  display: block;
 }
 
 .brand .brand-title {
   font-weight: 800;
-  font-size: 2.2rem;
+  font-size: 2.1rem;
+  color: var(--pink-deep);
   white-space: nowrap;
-  color: var(--pink-deep);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 2px rgba(0,0,0,.08);
 }
 
-/* ===== Hero Pitch ===== */
-.hero-pitch {
-  background-color: var(--pink-light);
-  text-align: center;
-  padding: 60px 20px;
-  border-bottom: 2px solid rgba(0,0,0,0.05);
-}
-
-.hero-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.hero-pitch h2 {
-  color: var(--pink-deep);
-  font-size: 2.2rem;
-  margin-bottom: 20px;
-}
-
-.hero-pitch p {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin: 18px 0;
-}
-
-.hero-pitch strong {
-  color: var(--pink-deep);
-}
-
-.hero-btn {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 24px;
-  background-color: var(--pink-deep);
-  color: #fff;
-  border-radius: 10px;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.hero-btn:hover {
-  background-color: #9c004d;
-}
-
-/* ===== Main Content ===== */
+/* Main content container */
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 16px 12px 48px;
-  text-align: left;
+  padding: 24px;
+  text-align: left;           /* body content left-aligned; header stays centered */
 }
 
+h1, h2 { color: var(--pink-deep); margin-top: 0.2em; }
+p { margin: 0.6em 0 1em; }
+
+/* CTA buttons */
 .actions {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 16px 0 0;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0 28px;
 }
 
 .btn {
-  display: inline-block;
   padding: 10px 18px;
-  border-radius: 10px;
-  text-decoration: none;
   border: 1px solid var(--pink-deep);
-  background-color: #ffe6f2;
+  border-radius: 10px;
   color: var(--pink-deep);
-  font-size: 1.1rem;
+  background: #ffe6f2;
+  text-decoration: none;
   font-weight: 600;
-  transition: all 0.2s ease-in-out;
+  transition: background .15s ease, color .15s ease;
 }
 
-.btn:hover {
-  background-color: var(--pink-deep);
-  color: white;
-}
+.btn:hover { background: var(--pink-deep); color: #fff; }
 
-/* ===== Footer ===== */
-footer {
-  text-align: center;
-  margin-top: 20px;
-}
+/* Footer */
+footer { text-align: center; color: #555; }
 
-/* ===== Responsive ===== */
-@media (max-width: 600px) {
-  .brand .brand-mark { width: 130px; }
-  .brand .brand-title { font-size: 1.9rem; }
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .brand .brand-mark { width: 95px; }
+  .brand .brand-title { font-size: 1.7rem; }
 }
