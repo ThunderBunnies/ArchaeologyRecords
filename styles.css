@@ -144,6 +144,6 @@ footer {
 
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
-  .brand .brand-mark { width: 90px; }
-  .brand .brand-title { font-size: 1.7rem; }
+  .brand .brand-mark { width: 130px; }
+  .brand .brand-title { font-size: 1.9rem; }
 }
