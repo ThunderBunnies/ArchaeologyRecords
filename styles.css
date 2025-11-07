@@ -35,7 +35,7 @@ body {
 
 /* Logo image */
 .brand .brand-mark {
-  width: 130px;   /* <— change this number to resize the logo */
+  width: 150px;   /* <— change this number to resize the logo */
   height: auto;
 }
 
