@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Colonial Shipwreck Log",
+    "description": "Recovered ship manifest from 1724 found near New Haven coast.",
+    "date": "1724-05-12",
+    "category": "Archaeological Record",
+    "fileUrl": "https://example.com/shipwreck-log-1724.pdf"
+  },
+  {
+    "title": "Port Ledger - 1764",
+    "description": "Shipping entries for Hartford harbor with vessel details.",
+    "date": "1764",
+    "category": "Government Record",
+    "fileUrl": "https://example.com/hartford-port-ledger-1764.pdf"
+  },
+  {
+    "title": "Parish Burial Records",
+    "description": "Transcribed burial list from early 18th-century church archives.",
+    "date": "1710",
+    "category": "Religious Record",
+    "fileUrl": ""
+  }
+]
