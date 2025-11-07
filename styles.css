@@ -1,212 +1,188 @@
-:root{
-  /* Thunder Bunnies pastel theme — soft pink + lightning gold */
-  --bg: #FFEFF6;
-  --bg-soft:#FFF6FA;
-  --surface:#FFFFFF;
-  --ink:#2C2C2C;
-  --muted:#555555;
-  --accent:#FF69B4;    /* hot pink */
-  --accent-2:#FFD700;  /* thunder gold */
-  --ring: rgba(255,105,180,0.35);
-  --max:1080px;
-  --radius:16px;
-  --shadow:0 6px 20px rgba(0,0,0,.08);
+/* ============================
+   ThunderBunnies Global Theme
+   ============================ */
+:root {
+  --tb-light-pink: #ffd6eb;
+  --tb-deep-pink:  #c2185b;
+  --tb-deep-pink-2:#9c004d;
+  --text:          #333333;
+  --bg:            #fffafc;
+  --border:        rgba(0, 0, 0, 0.12);
+  --shadow:        rgba(0, 0, 0, 0.1);
 }
 
-*{ box-sizing:border-box }
-html,body{
-  margin:0; padding:0;
-  background:var(--bg); color:var(--ink);
-  font-family:system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;
-  line-height:1.5;
-}
-a{ color:var(--accent); text-decoration:none }
-a:hover{ text-decoration:underline }
-img{ max-width:100%; height:auto; display:block }
+/* Basic reset (lightweight) */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
 
-.container{ width:100%; max-width:var(--max); margin-inline:auto; padding:0 1rem }
-
-/* Skip link */
-.skip-link{
-  position:absolute; left:-9999px; top:auto;
-  width:1px; height:1px; overflow:hidden;
-}
-.skip-link:focus{
-  left:1rem; top:1rem; width:auto; height:auto;
-  padding:.5rem .75rem;
-  background:#fff; color:#000; border-radius:8px; z-index:1000;
+/* Typography & base */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Header */
-.site-header{
-  position:sticky; top:0; z-index:10;
-  backdrop-filter:saturate(120%) blur(8px);
-  background:rgba(255,255,255,.85);
-  border-bottom:1px solid rgba(0,0,0,.08);
-  box-shadow:0 2px 6px rgba(0,0,0,.05);
+h1, h2, h3 {
+  color: var(--tb-deep-pink);
+  line-height: 1.2;
+  margin: 0.5em 0 0.4em;
 }
-.nav{
+p { margin: 0.5em 0 1em; }
+a { color: var(--tb-deep-pink); text-decoration: none; }
+a:hover { color: var(--tb-deep-pink-2); }
+
+/* ============================
+   Header / Brand
+   ============================ */
+.site-header {
+  background-color: var(--tb-light-pink);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 12px;
+  flex-wrap: wrap;
   text-align: center;
+  box-shadow: 0 2px 6px var(--shadow);
 }
+
 .brand {
-  display: inline-block;
-  text-align: center;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  color: #333;
+  text-decoration: none;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-}
-.brand-mark {
-  width: 40px;           /* adjust logo size */
+
+.brand .brand-mark {
+  width: 80px;              /* adjust if you want smaller/larger */
   height: auto;
-  vertical-align: middle; /* aligns logo with text */
-  margin-right: 10px;     /* space between logo and text */
+  border-radius: 8px;       /* optional rounded corners */
 }
 
-.menu{ display:flex; gap:1rem; align-items:center }
-.menu a{ color:var(--ink); opacity:.9 }
-.menu a:hover{ opacity:1; color:var(--accent) }
-
-/* Hero */
-.hero{
-  position:relative;
-  padding:clamp(3rem,6vw,6rem) 0;
-  background:
-    radial-gradient(800px 400px at 30% -10%, rgba(255,105,180,.15), transparent 70%),
-    radial-gradient(600px 300px at 90% 10%, rgba(255,215,0,.18), transparent 70%),
-    linear-gradient(to bottom, var(--bg-soft), var(--bg));
-  border-bottom:1px solid rgba(0,0,0,.05);
-}
-.hero-inner{ text-align:center; max-width:900px; margin-inline:auto }
-.hero h1{
-  font-size:clamp(2rem,5vw,3rem);
-  line-height:1.1; margin:.25rem 0 .75rem;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-}
-.lead{ color:var(--muted); font-size:clamp(1rem,2.5vw,1.125rem) }
-.cta-group{
-  display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; margin-top:1rem;
-}
-.hero-pattern{
-  position:absolute; inset:0; pointer-events:none; opacity:.15;
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, var(--accent) 40%, transparent),
-    radial-gradient(1px 1px at 80% 60%, var(--accent-2) 40%, transparent);
-  background-size:400px 400px;
+.brand .brand-title {
+  font-weight: 800;
+  line-height: 1.1;
+  font-size: 2.2rem;        /* title size */
+  white-space: nowrap;
+  color: var(--tb-deep-pink);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.08);
 }
 
-/* Sections */
-.section{ padding:clamp(2rem,5vw,4rem) 0 }
-.section.alt{ background:var(--bg-soft); border-block:1px solid rgba(0,0,0,.05) }
-.center{ text-align:center }
-.tight{ margin-top:0 }
-
-/* ThunderBunniesImage */
-.top-center-image {
-  text-align: center;     /* centres the content horizontally */
-  margin: 30px 0;          /* adds space above & below the image */
+/* ============================
+   Layout / Containers
+   ============================ */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px 12px 48px;
 }
 
-.top-center-image img {
-  width: 110px;            /* choose your preferred size */
-  height: auto;            /* maintain aspect ratio */
-  display: inline-block;   /* ensures the centering works properly */
+/* Section spacing */
+section { margin: 28px 0; }
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
 }
 
+/* ============================
+   Buttons / Actions
+   ============================ */
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0 0;
+  justify-content: center;
+}
 
-/* Grid layouts */
-.grid-2{ display:grid; gap:1.5rem; grid-template-columns:1fr }
-@media (min-width:820px){ .grid-2{ grid-template-columns:1.25fr .9fr } }
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--tb-deep-pink);
+  background-color: #ffe6f2;
+  color: var(--tb-deep-pink);
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+.btn:hover {
+  background-color: var(--tb-deep-pink);
+  color: #ffffff;
+}
 
-.features-grid{ display:grid; gap:1rem; grid-template-columns:repeat(1,minmax(0,1fr)) }
-@media (min-width:680px){ .features-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
-@media (min-width:980px){ .features-grid{ grid-template-columns:repeat(4,minmax(0,1fr)) } }
+/* Button focus visible (accessibility) */
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: 2px;
+}
 
-.feature{
-  background:var(--surface);
-  border-radius:var(--radius);
-  padding:1rem;
-  box-shadow:var(--shadow);
-  border:1px solid rgba(0,0,0,.05);
-  transition:transform .2s ease, box-shadow .2s ease;
+/* ============================
+   Footer
+   ============================ */
+footer {
+  text-align: center;
+  color: #555;
 }
-.feature:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(255,105,180,.25) }
-.icon{ font-size:1.5rem; margin-bottom:.25rem }
 
-/* Cards / callouts */
-.card{
-  background:var(--surface);
-  border-radius:var(--radius);
-  padding:1rem;
-  box-shadow:var(--shadow);
-  border:1px solid rgba(0,0,0,.05);
+/* ============================
+   Tables (optional styling)
+   ============================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 24px;
 }
-.callout{ border-left:4px solid var(--accent) }
+th, td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+th {
+  color: var(--tb-deep-pink);
+  font-weight: 700;
+}
 
-/* Buttons */
-.btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-  padding:.75rem 1rem; border-radius:12px;
-  border:1px solid rgba(0,0,0,.1);
-  background:transparent; color:var(--ink);
-  font-weight:600; cursor:pointer;
-  transition:.15s transform ease,.15s background ease,.15s border-color ease;
-}
-.btn:hover{ transform:translateY(-1px) }
-.btn:focus-visible{ outline:2px solid var(--ring); outline-offset:2px }
-.btn-small{ padding:.5rem .75rem }
-.btn-primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  border:none; color:#fff;
-}
-.btn-primary:hover{ filter:brightness(1.1) }
-.btn-outline{
-  background:transparent; border-color:var(--accent); color:var(--accent);
-}
-.btn-outline:hover{ background:var(--accent); color:#fff }
+/* ============================
+   Lists (clean spacing)
+   ============================ */
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.3em 0; }
 
-/* Lists */
-.checklist{ padding-left:1.2rem }
-.checklist li{ margin:.35rem 0 }
-.linklist{ list-style:none; padding:0; margin:0 }
-.linklist li{ margin:.35rem 0 }
+/* ============================
+   Utilities (optional helpers)
+   ============================ */
+.center { text-align: center; }
+.hidden { display: none !important; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
 
-/* Mini form */
-.mini-form{
-  background:var(--surface);
-  border-radius:var(--radius);
-  padding:1rem;
-  box-shadow:var(--shadow);
-  border:1px solid rgba(0,0,0,.05);
+/* ============================
+   Responsive tweaks
+   ============================ */
+@media (max-width: 800px) {
+  .brand .brand-title { font-size: 2rem; }
 }
-.mini-form label{ display:grid; gap:.4rem; margin:.6rem 0 }
-.mini-form input, .mini-form textarea{
-  width:100%; padding:.7rem .8rem;
-  border-radius:10px;
-  border:1px solid rgba(0,0,0,.15);
-  background:#fff; color:var(--ink);
-}
-.mini-form input:focus, .mini-form textarea:focus{
-  outline:2px solid var(--ring); outline-offset:2px;
-}
-.form-note{ color:var(--muted); font-size:.9rem; margin:.5rem 0 0 }
 
-/* Table tweaks */
-table th{ background:var(--bg-soft); font-weight:600; }
-table td, table th{ color:var(--ink) }
+@media (max-width: 600px) {
+  .brand .brand-mark { width: 60px; }
+  .brand .brand-title { font-size: 1.7rem; }
+}
 
-/* Footer */
-.site-footer{
-  border-top:1px solid rgba(0,0,0,.05);
-  background:var(--bg-soft);
-}
-.footer-grid{
-  display:flex; align-items:flex-start; justify-content:space-between;
-  gap:1rem; padding:1.25rem 0; flex-wrap:wrap;
-}
-.site-footer nav{ display:flex; gap:1rem; flex-wrap:wrap }
-.site-footer nav a:hover{ color:var(--accent) }
-.legal{
-  text-align:center; color:var(--muted);
-  font-size:.9rem; padding:.75rem 0 .9rem;
-}
-.muted{ color:var(--muted) }
+/* ============================
+   Legacy cleanup (optional)
+   If you previously had floats for images or brand,
+   these lines neutralize them.
+   ============================ */
+.brand, .brand .brand-mark, .brand .brand-title { float: none !important; }
