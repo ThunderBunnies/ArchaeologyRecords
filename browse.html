@@ -62,120 +62,164 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    const DOM = {
-      search: document.getElementById('search'),
-      filter: document.getElementById('filter'),
-      apply: document.getElementById('applyFilter'),
-      refresh: document.getElementById('refresh'),
-      body: document.getElementById('record-body'),
-      count: document.getElementById('count'),
-    };
+  // Controls
+  const search = document.getElementById('search');
+  const filterEl = document.getElementById('filter');
+  const applyBtn = document.getElementById('applyFilter');
+  const refreshBtn = document.getElementById('refresh') || (function(){
+    const b = document.createElement('button');
+    b.className = 'btn';
+    b.id = 'refresh';
+    b.textContent = 'Refresh';
+    document.querySelector('.browse-controls').appendChild(b);
+    return b;
+  })();
 
-    let records = [];
-    let headers = [];
+  // Add a "Clear local additions" button
+  (function ensureClearButton(){
+    const container = document.querySelector('.browse-controls');
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.id = 'clearLocal';
+    btn.textContent = 'Clear local additions';
+    container.appendChild(btn);
+    btn.addEventListener('click', () => {
+      localStorage.removeItem('tb_records');
+      loadAndRender();
+    });
+  })();
 
-    const JSON_URL = 'records.json'; // same folder as this page
+  const tbody = document.getElementById('record-body');
+  const count = document.getElementById('count') || (function(){
+    const p = document.createElement('p');
+    p.id = 'count';
+    p.style.color = '#555';
+    document.querySelector('main.container').appendChild(p);
+    return p;
+  })();
 
-    function toKeyMap(obj) {
-      // build a case-insensitive getter for the object keys
-      const map = {};
-      Object.keys(obj || {}).forEach(k => map[k.toLowerCase()] = obj[k]);
-      return name => map[(name || '').toLowerCase()];
+  const JSON_URL = 'records.json'; // keep next to browse.html
+  const LOCAL_KEY = 'tb_records';
+
+  let records = [];
+
+  async function loadRepoJson() {
+    try {
+      const res = await fetch(`${JSON_URL}?_=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) return [];
+      return await res.json();
+    } catch {
+      return [];
+    }
+  }
+
+  function loadLocalRecords() {
+    try {
+      return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function toKeyMap(obj) {
+    const map = {};
+    Object.keys(obj || {}).forEach(k => map[k.toLowerCase()] = obj[k]);
+    return name => map[(name || '').toLowerCase()];
+  }
+
+  async function loadAndRender() {
+    tbody.innerHTML = `<tr><td colspan="5">Loading…</td></tr>`;
+    count.textContent = '';
+
+    const repo = await loadRepoJson();     // from records.json
+    const local = loadLocalRecords();      // from uploads (localStorage)
+    records = [...repo, ...local];
+
+    buildCategoryOptions(records);
+    render();
+  }
+
+  function buildCategoryOptions(data) {
+    const cats = new Set();
+    data.forEach(r => {
+      const g = toKeyMap(r);
+      const c = (g('category') || '').toString().trim();
+      if (c) cats.add(c);
+    });
+    filterEl.innerHTML = ['<option value="">All Categories</option>']
+      .concat(Array.from(cats).sort().map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`))
+      .join('');
+  }
+
+  function render() {
+    const q = (search.value || '').toLowerCase().trim();
+    const cat = filterEl.value;
+
+    const filtered = records.filter(r => {
+      const g = toKeyMap(r);
+      const hay = `${g('title') || ''} ${g('description') || ''}`.toLowerCase();
+      const inSearch = q ? hay.includes(q) : true;
+      const inCat = cat ? (g('category') || '') === cat : true;
+      return inSearch && inCat;
+    });
+
+    if (!filtered.length) {
+      tbody.innerHTML = `<tr><td colspan="5">No records found.</td></tr>`;
+      count.textContent = `0 records shown`;
+      return;
     }
 
-    async function loadRecords() {
-      DOM.body.innerHTML = `<tr><td colspan="5">Loading…</td></tr>`;
-      DOM.count.textContent = '';
-      try {
-        const res = await fetch(`${JSON_URL}?_=${Date.now()}`, { cache: 'no-store' });
-        if (!res.ok) throw new Error('Fetch failed');
-        const data = await res.json();
-        records = Array.isArray(data) ? data : [];
-        buildCategoryOptions(records);
-        render();
-      } catch (err) {
-        console.error(err);
-        DOM.body.innerHTML = `<tr><td colspan="5">Error loading records.json. Make sure the file exists and is valid JSON.</td></tr>`;
+    tbody.innerHTML = filtered.map(r => {
+      const g = toKeyMap(r);
+      const title = escapeHtml(g('title') || '');
+      const desc  = escapeHtml(g('description') || '');
+      const date  = escapeHtml(g('date') || '');
+      const cat   = escapeHtml(g('category') || '');
+      const url   = (g('fileUrl') || g('file') || '').toString().trim();
+      const files = Array.isArray(g('files')) ? g('files') : [];
+
+      // Prefer a URL if present; otherwise show file names (from local uploads)
+      let fileCell = '';
+      if (url) {
+        fileCell = `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">Open</a>`;
+      } else if (files.length) {
+        fileCell = escapeHtml(files.join(', '));
       }
-    }
 
-    function buildCategoryOptions(data) {
-      const cats = new Set();
-      data.forEach(row => {
-        const g = toKeyMap(row);
-        const cat = (g('category') || '').toString().trim();
-        if (cat) cats.add(cat);
-      });
-      const options = ['<option value="">All Categories</option>']
-        .concat(Array.from(cats).sort().map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`));
-      DOM.filter.innerHTML = options.join('');
-    }
+      return `<tr>
+        <td>${title}</td>
+        <td>${desc}</td>
+        <td>${date}</td>
+        <td>${cat}</td>
+        <td>${fileCell}</td>
+      </tr>`;
+    }).join('');
 
-    function render() {
-      const query = DOM.search.value.trim().toLowerCase();
-      const filter = DOM.filter.value;
+    count.textContent = `${filtered.length} record${filtered.length === 1 ? '' : 's'} shown`;
+  }
 
-      const filtered = records.filter(row => {
-        const g = toKeyMap(row);
-        const hay = `${g('title') || ''} ${g('description') || ''}`.toLowerCase();
-        const inSearch = query ? hay.includes(query) : true;
-        const inCat = filter ? (g('category') || '') === filter : true;
-        return inSearch && inCat;
-      });
+  function escapeHtml(s) {
+    return String(s)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'","&#39;");
+  }
+  function escapeAttr(s) {
+    return String(s).replace(/"/g, '&quot;');
+  }
 
-      if (filtered.length === 0) {
-        DOM.body.innerHTML = `<tr><td colspan="5">No records found.</td></tr>`;
-        DOM.count.textContent = `0 records shown`;
-        return;
-      }
+  // Events
+  applyBtn.addEventListener('click', render);
+  refreshBtn.addEventListener('click', loadAndRender);
+  search.addEventListener('input', render);
+  filterEl.addEventListener('change', render);
 
-      DOM.body.innerHTML = filtered.map(row => {
-        const g = toKeyMap(row);
-        const title = escapeHtml(g('title') || '');
-        const desc = escapeHtml(g('description') || '');
-        const date = escapeHtml(g('date') || '');
-        const cat  = escapeHtml(g('category') || '');
-        const url  = (g('fileUrl') || g('file') || g('link') || '').toString().trim();
-
-        const fileCell = url
-          ? `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">Open</a>`
-          : '';
-
-        return `<tr>
-          <td>${title}</td>
-          <td>${desc}</td>
-          <td>${date}</td>
-          <td>${cat}</td>
-          <td>${fileCell}</td>
-        </tr>`;
-      }).join('');
-
-      DOM.count.textContent = `${filtered.length} record${filtered.length === 1 ? '' : 's'} shown`;
-    }
-
-    function escapeHtml(s) {
-      return String(s)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'","&#39;");
-    }
-    function escapeAttr(s) {
-      // safe enough for href attribute
-      return String(s).replace(/"/g, '&quot;');
-    }
-
-    // Events
-    DOM.apply.addEventListener('click', render);
-    DOM.refresh.addEventListener('click', loadRecords);
-    DOM.search.addEventListener('input', render);
-    DOM.filter.addEventListener('change', render);
-
-    // Go!
-    loadRecords();
-  </script>
+  // Go!
+  loadAndRender();
+</script>
 </body>
 </html>
