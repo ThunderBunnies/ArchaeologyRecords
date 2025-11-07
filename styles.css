@@ -48,9 +48,11 @@ img{ max-width:100%; height:auto; display:block }
 .nav{
   text-align: center;
 }
-.brand{
-  font-weight:700; display:flex; align-items:center; gap:.6rem;
-  color:var(--accent);
+.brand {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
 }
 .brand-mark {
   width: 40px;           /* adjust logo size */
