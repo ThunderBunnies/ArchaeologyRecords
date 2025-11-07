@@ -92,40 +92,43 @@ footer { text-align: center; color: #555; }
   .brand .brand-mark { width: 95px; }
   .brand .brand-title { font-size: 1.7rem; }
 }
-/* ===== Upload Form ===== */
+/* ===== Upload Form Layout ===== */
 .upload-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px; /* more space between fields */
   max-width: 600px;
   margin: 0 auto 40px;
-  padding: 20px;
+  padding: 24px;
   background-color: #fff;
   border: 1px solid #ffd6eb;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px; /* spacing between label and input */
+}
+
 .upload-form label {
   font-weight: 600;
   color: var(--pink-deep);
-  text-align: left;
 }
 
-.upload-form input[type="text"],
-.upload-form input[type="date"],
+.upload-form input,
 .upload-form select,
-.upload-form textarea,
-.upload-form input[type="file"] {
+.upload-form textarea {
+  width: 100%;
+  padding: 10px;
   font-size: 1rem;
-  padding: 8px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  width: 100%;
 }
 
 .upload-form button {
-  align-self: center;
   padding: 10px 20px;
   font-size: 1.1rem;
   border: none;
@@ -143,7 +146,7 @@ footer { text-align: center; color: #555; }
 #upload-status {
   max-width: 600px;
   margin: 0 auto;
-  text-align: left;
   color: var(--pink-deep);
   font-weight: 600;
+  line-height: 1.5;
 }
