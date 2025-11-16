@@ -1,52 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Character encoding + responsive layout -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Browser tab title -->
   <title>Archaeology Records • Thunder Bunnies</title>
+
+  <!-- Global stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- Header -->
+
+  <!-- =========================================
+       HEADER (Brand logo + site title)
+       ========================================= -->
   <header class="site-header" role="banner">
+    <!-- Clicking the brand returns to home page -->
     <a class="brand" href="./" aria-label="Archaeology Records Home">
+      <!-- ThunderBunnies brand icon -->
       <img class="brand-mark" src="ThunderBunnies.jpg" alt="ThunderBunnies logo" />
       <span class="brand-title">Burrowed Records</span>
     </a>
   </header>
 
-  <!-- Main content -->
+  <!-- =========================================
+       MAIN CONTENT (Landing + Call to Action)
+       ========================================= -->
   <main class="container" role="main">
+
+    <!-- Landing title -->
     <h1>Welcome</h1>
 
-    <p>Calling archaeologists, history enthusiasts, detectives, students, and the public to join hands in building a living archive of our shared heritage.</p>
+    <!-- Hero text introducing the mission -->
+    <p>
+      Calling archaeologists, history enthusiasts, detectives, students, and the public 
+      to join hands in building a living archive of our shared heritage.
+    </p>
 
-    <p>Together, we can centralize, digitize, and explore archaeological data — from ship wrecks and government archives to property deeds, tax ledgers, port records and religious documents.</p>
+    <p>
+      Together, we can centralize, digitize, and explore archaeological data — 
+      from ship wrecks and government archives to property deeds, tax ledgers, 
+      port records and religious documents.
+    </p>
 
-    <p>Help us create a community-driven digital hub where every record brings us closer to understanding our collective story.</p>
+    <p>
+      Help us create a community-driven digital hub where every record brings us 
+      closer to understanding our collective story.
+    </p>
 
     <p><strong>Discover. Contribute. Connect.</strong></p>
 
+    <!-- Main calls to action -->
     <div class="actions">
+      <!-- Upload new record -->
       <a class="btn" href="./upload.html">Upload</a>
+
+      <!-- Browse existing records -->
       <a class="btn" href="./browse.html">Browse</a>
     </div>
 
+    <!-- =========================================
+         INFORMATION SECTION (Prototype explanation)
+         ========================================= -->
     <section>
       <h2>Latest</h2>
-      <p>This is our prototype. To build this into a Minimum Viable Product (MVP) that serves either a small archaeology group or pilot research project or as a student or community digital archive, we expect a one time build cost of ~$15k to ~$45k and an ongoing monthly cost of ~$50 to ~$300. We plan to use crowd funding to secure the required funds. </p>
+
+      <!-- MVP cost explanation -->
+      <p>
+        This is our prototype. To build this into a Minimum Viable Product (MVP) that serves 
+        either a small archaeology group or pilot research project or as a student or community 
+        digital archive, we expect a one time build cost of ~$15k to ~$45k and an ongoing monthly 
+        cost of ~$50 to ~$300. We plan to use crowd funding to secure the required funds.
+      </p>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- =========================================
+       FOOTER (Copyright year auto-filled)
+       ========================================= -->
   <footer class="container" role="contentinfo">
     <hr />
     <p>© <span id="year"></span> Thunder Bunnies • Archaeology Records</p>
   </footer>
 
+  <!-- JS: Inject current year -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
