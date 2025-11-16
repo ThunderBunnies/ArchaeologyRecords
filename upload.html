@@ -5,40 +5,38 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Page title shown in tab -->
+  <!-- Browser tab title -->
   <title>Upload • Archaeology Records</title>
 
-  <!-- Shared ThunderBunnies styles -->
+  <!-- ThunderBunnies shared stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-
   <!-- ===========================
-       HEADER (Brand)
+       HEADER (Brand + Home link)
        =========================== -->
   <header class="site-header">
-    <!-- Brand link sends user back to home page -->
     <a class="brand" href="./">
+      <!-- Project logo -->
       <img class="brand-mark" src="ThunderBunnies.jpg" alt="ThunderBunnies logo" />
       <span class="brand-title">Burrowed Records</span>
     </a>
   </header>
 
   <!-- ===========================
-       MAIN CONTENT
+       MAIN CONTENT AREA
        =========================== -->
   <main class="container">
     <h1>Upload Records</h1>
     <p>Provide details for your contribution below and attach files.</p>
 
-    <!-- Back button at the top so it never gets pushed below JSON preview -->
-    <div class="actions" style="margin-bottom: 20px;">
-      <a class="btn" href="./index.html">⬅ Back to Main Page</a>
-    </div>
-
-    <!-- Upload form (client-side only; no backend) -->
+    <!-- ===========================
+         UPLOAD FORM
+         (Client-side only; no server upload)
+         =========================== -->
     <form class="upload-form" id="upload-form" novalidate>
+
       <!-- Title field -->
       <div class="form-group">
         <label for="title">Title:</label>
@@ -63,7 +61,7 @@
         ></textarea>
       </div>
 
-      <!-- Date field (HTML date input) -->
+      <!-- Date field -->
       <div class="form-group">
         <label for="date">Date:</label>
         <input 
@@ -88,7 +86,7 @@
         </select>
       </div>
 
-      <!-- File upload (currently: filenames only, no real server upload) -->
+      <!-- File upload (names only; not stored anywhere) -->
       <div class="form-group">
         <label for="file-upload">Attach file(s):</label>
         <input 
@@ -99,5 +97,90 @@
         >
       </div>
 
-      <!-- Submit button -->
-      <div class="form-gro
+      <!-- Submit button at very bottom of the form (original layout) -->
+      <div class="form-group" style="text-align:center;">
+        <button type="submit" class="btn upload-btn">Submit</button>
+      </div>
+    </form>
+
+    <!-- Status area: success message + raw JSON preview + download link -->
+    <div id="upload-status"></div>
+    
+    <!-- Back to homepage button BELOW status (original placement) -->
+    <div class="actions">
+      <a class="btn" href="./index.html">⬅ Back to Main Page</a>
+    </div>
+
+  </main>
+
+  <!-- ===========================
+       FOOTER
+       =========================== -->
+  <footer class="container">
+    <hr />
+    <p>© <span id="year"></span> Thunder Bunnies • Archaeology Records</p>
+  </footer>
+
+  <!-- ===========================
+       SCRIPT: Handles form submission
+       (Local save + JSON download)
+       =========================== -->
+  <script>
+  // Insert current year into footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Reference to form + status display container
+  const form = document.getElementById('upload-form');
+  const status = document.getElementById('upload-status');
+
+  // Handle "Submit" click
+  form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent default page reload
+
+    // Basic HTML validation check
+    if (!form.checkValidity()) {
+      status.innerHTML = '<p style="color:#c2185b;"><strong>Please fill in all required fields.</strong></p>';
+      return;
+    }
+
+    // Build the new record object from form fields
+    const record = {
+      title: document.getElementById('title').value.trim(),
+      description: document.getElementById('description').value.trim(),
+      date: document.getElementById('date').value,
+      category: document.getElementById('category').value,
+
+      // File names only; no storage or upload being done
+      files: Array.from(document.getElementById('file-upload').files).map(f => f.name)
+      // If uploads are later hosted somewhere, add `fileUrl` here
+    };
+
+    // 1) Save to browser localStorage (Browse page will read these)
+    const KEY = 'tb_records';
+    const all = JSON.parse(localStorage.getItem(KEY) || '[]');
+    all.push(record);
+    localStorage.setItem(KEY, JSON.stringify(all));
+
+    // 2) Generate downloadable JSON for maintainers
+    const jsonData = JSON.stringify(record, null, 2);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    // Filename: record_title.json (spaces -> underscores)
+    const filename = (record.title || 'record').replace(/\s+/g,'_') + '.json';
+
+    // Insert status message + JSON <pre> (original behavior)
+    status.innerHTML = `
+      <h2>Submission Saved</h2>
+      <p>Your entry is now visible on <a href="./browse.html">Browse</a> (local to your browser).</p>
+      <p>You can also download the JSON to merge into <code>records.json</code> in GitHub:</p>
+      <pre>${jsonData}</pre>
+      <a class="btn upload-btn" href="${url}" download="${filename}">💾 Download JSON</a>
+    `;
+
+    // Clear form fields after submission
+    form.reset();
+  });
+  </script>
+</body>
+</html>
