@@ -1,37 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Standard metadata for encoding + responsive design -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Page title shown in browser tab -->
   <title>Browse • Archaeology Records</title>
+
+  <!-- Main stylesheet for layout + branding -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- Header -->
+
+  <!-- ===========================
+       HEADER (Brand + Navigation)
+       =========================== -->
   <header class="site-header">
+    <!-- Clicking logo/title takes users back to Homepage -->
     <a class="brand" href="./">
+      <!-- ThunderBunnies pink brand mark -->
       <img class="brand-mark" src="ThunderBunnies.jpg" alt="ThunderBunnies logo" />
       <span class="brand-title">Burrowed Records</span>
     </a>
   </header>
 
-  <!-- Main content -->
+  <!-- ===========================
+       MAIN CONTENT AREA
+       =========================== -->
   <main class="container">
+
+    <!-- Page title + intro text -->
     <h1>Browse Existing Records</h1>
     <p>Explore archaeological records shared by the Thunder Bunnies community.</p>
 
-    <!-- Controls -->
+    <!-- ===========================
+         SEARCH + FILTER CONTROLS
+         =========================== -->
     <div class="browse-controls">
+
+      <!-- Text search: matches title + description -->
       <input type="text" id="search" placeholder="Search by title or description...">
+
+      <!-- Dynamic category dropdown (filled by JS) -->
       <select id="filter">
         <option value="">All Categories</option>
       </select>
+
+      <!-- Apply filter button -->
       <button class="btn" id="applyFilter">Filter</button>
+
+      <!-- Reload data from repo/local storage -->
       <button class="btn" id="refresh">Refresh</button>
     </div>
 
-    <!-- Records table (wrapped for sticky header + clear rows) -->
+    <!-- ===========================
+         TABLE WRAPPER
+         (Helps with overflow + sticky header)
+         =========================== -->
     <div class="table-wrap">
       <table class="records-table">
         <thead>
@@ -43,34 +70,49 @@
             <th>File</th>
           </tr>
         </thead>
+
+        <!-- Filled dynamically by JavaScript -->
         <tbody id="record-body">
           <tr><td colspan="5">Loading…</td></tr>
         </tbody>
       </table>
     </div>
 
+    <!-- Row count indicator ("12 records shown") -->
     <p id="count" style="color:#555;"></p>
 
-    <!-- Back button -->
+    <!-- Back navigation -->
     <div class="actions">
       <a class="btn" href="./index.html">⬅ Back to Main Page</a>
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- ===========================
+       FOOTER
+       =========================== -->
   <footer class="container">
     <hr />
     <p>© <span id="year"></span> Thunder Bunnies • Archaeology Records</p>
   </footer>
 
+
+  <!-- ===========================
+       JAVASCRIPT SECTION
+       (Data loading, filtering, rendering)
+       =========================== -->
   <script>
+
+  /* Set footer year automatically */
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Controls
+  /* Grab all major UI elements */
   const search = document.getElementById('search');
   const filterEl = document.getElementById('filter');
   const applyBtn = document.getElementById('applyFilter');
+
+  /* Refresh button — fallback added in case missing */
   const refreshBtn = document.getElementById('refresh') || (function(){
+    // If missing, create and append one
     const b = document.createElement('button');
     b.className = 'btn';
     b.id = 'refresh';
@@ -79,22 +121,31 @@
     return b;
   })();
 
-  // Add a "Clear local additions" button
+  /* ===========================
+     ADD "Clear Local Additions"
+     (Removes records saved by users locally)
+     =========================== */
   (function ensureClearButton(){
     const container = document.querySelector('.browse-controls');
+
+    // Create button dynamically
     const btn = document.createElement('button');
     btn.className = 'btn';
     btn.id = 'clearLocal';
     btn.textContent = 'Clear local additions';
     container.appendChild(btn);
+
+    // Clicking removes localStorage records
     btn.addEventListener('click', () => {
       localStorage.removeItem('tb_records');
-      loadAndRender();
+      loadAndRender();   // Reload fresh repo data
     });
   })();
 
+  /* Table body + count label (with fallback if missing) */
   const tbody = document.getElementById('record-body');
   const count = document.getElementById('count') || (function(){
+    // If missing, create it
     const p = document.createElement('p');
     p.id = 'count';
     p.style.color = '#555';
@@ -102,21 +153,33 @@
     return p;
   })();
 
-  const JSON_URL = 'records.json'; // keep next to browse.html
+  /* File where repo-stored records live */
+  const JSON_URL = 'records.json';
+
+  /* LocalStorage key for user-added records */
   const LOCAL_KEY = 'tb_records';
 
+  /* Array containing ALL loaded records */
   let records = [];
 
+  /* ===========================
+     Load JSON from GitHub repo
+     =========================== */
   async function loadRepoJson() {
     try {
+      // Cache buster via timestamp
       const res = await fetch(`${JSON_URL}?_=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) return [];
-      return await res.json();
+      return await res.json(); // Return parsed JSON
     } catch {
-      return [];
+      return []; // Fail-safe if file missing
     }
   }
 
+  /* ===========================
+     Load LOCAL (user-uploaded)
+     records stored in browser
+     =========================== */
   function loadLocalRecords() {
     try {
       return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]');
@@ -125,72 +188,117 @@
     }
   }
 
+  /* Helper: Converts object keys to lowercase for safer access */
   function toKeyMap(obj) {
     const map = {};
     Object.keys(obj || {}).forEach(k => map[k.toLowerCase()] = obj[k]);
     return name => map[(name || '').toLowerCase()];
   }
 
+  /* ===========================
+     LOAD ALL DATA + RENDER TABLE
+     =========================== */
   async function loadAndRender() {
+    // Show loading message
     tbody.innerHTML = `<tr><td colspan="5">Loading…</td></tr>`;
     count.textContent = '';
 
-    const repo = await loadRepoJson();     // from records.json
-    const local = loadLocalRecords();      // from uploads (localStorage)
+    // Load repo records + localStorage records
+    const repo = await loadRepoJson();
+    const local = loadLocalRecords();
+
+    // Merge repo + local additions
     records = [...repo, ...local];
 
+    // Rebuild category dropdown options
     buildCategoryOptions(records);
+
+    // Render final table
     render();
   }
 
+  /* ===========================
+     FILL CATEGORY DROPDOWN
+     Extract unique categories from all records
+     =========================== */
   function buildCategoryOptions(data) {
     const cats = new Set();
+
     data.forEach(r => {
       const g = toKeyMap(r);
       const c = (g('category') || '').toString().trim();
       if (c) cats.add(c);
     });
-    filterEl.innerHTML = ['<option value="">All Categories</option>']
-      .concat(Array.from(cats).sort().map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`))
+
+    // Build <option> list
+    filterEl.innerHTML =
+      ['<option value="">All Categories</option>']
+      .concat(
+        Array.from(cats).sort().map(c =>
+          `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`
+        )
+      )
       .join('');
   }
 
+  /* ===========================
+     RENDER TABLE BASED ON
+     SEARCH + FILTER
+     =========================== */
   function render() {
+
+    // Extract search + filter values
     const q = (search.value || '').toLowerCase().trim();
     const cat = filterEl.value;
 
+    // Filter logic
     const filtered = records.filter(r => {
       const g = toKeyMap(r);
+
+      // Combine searchable fields
       const hay = `${g('title') || ''} ${g('description') || ''}`.toLowerCase();
+
       const inSearch = q ? hay.includes(q) : true;
       const inCat = cat ? (g('category') || '') === cat : true;
+
       return inSearch && inCat;
     });
 
+    // No results
     if (!filtered.length) {
       tbody.innerHTML = `<tr><td colspan="5">No records found.</td></tr>`;
       count.textContent = `0 records shown`;
       return;
     }
 
+    /* Build table rows dynamically */
     tbody.innerHTML = filtered.map(r => {
       const g = toKeyMap(r);
+
+      // Escape HTML to prevent injection
       const title = escapeHtml(g('title') || '');
       const desc  = escapeHtml(g('description') || '');
       const date  = escapeHtml(g('date') || '');
       const cat   = escapeHtml(g('category') || '');
+
+      // File URL or uploaded file list
       const url   = (g('fileUrl') || g('file') || '').toString().trim();
       const files = Array.isArray(g('files')) ? g('files') : [];
 
-      // Prefer a URL if present; otherwise show file names (from local uploads)
       let fileCell = '';
+
+      // If a URL exists, display "Open" button
       if (url) {
         fileCell = `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">Open</a>`;
-      } else if (files.length) {
+      }
+      // Otherwise, show names of files from local uploads
+      else if (files.length) {
         fileCell = escapeHtml(files.join(', '));
       }
 
-      return `<tr>
+      // Final table row
+      return `
+      <tr>
         <td>${title}</td>
         <td>${desc}</td>
         <td>${date}</td>
@@ -199,9 +307,11 @@
       </tr>`;
     }).join('');
 
+    // Update record count
     count.textContent = `${filtered.length} record${filtered.length === 1 ? '' : 's'} shown`;
   }
 
+  /* HTML escaping to prevent broken markup / XSS */
   function escapeHtml(s) {
     return String(s)
       .replaceAll('&','&amp;')
@@ -210,18 +320,23 @@
       .replaceAll('"','&quot;')
       .replaceAll("'","&#39;");
   }
+
+  /* Attribute-safe escaping */
   function escapeAttr(s) {
     return String(s).replace(/"/g, '&quot;');
   }
 
-  // Events
-  applyBtn.addEventListener('click', render);
-  refreshBtn.addEventListener('click', loadAndRender);
-  search.addEventListener('input', render);
-  filterEl.addEventListener('change', render);
+  /* ===========================
+     EVENT LISTENERS
+     =========================== */
+  applyBtn.addEventListener('click', render);     // Manual filter button
+  refreshBtn.addEventListener('click', loadAndRender); // Reload everything
+  search.addEventListener('input', render);       // Live search
+  filterEl.addEventListener('change', render);    // Change category => rerender
 
-  // Go!
+  /* INITIAL PAGE LOAD */
   loadAndRender();
-</script>
+
+  </script>
 </body>
 </html>
