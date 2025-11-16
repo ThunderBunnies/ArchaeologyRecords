@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Metadata for encoding + responsive design -->
   <meta charset="utf-8" />
   <title>Records — Archaeology Records</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Preload CSS for slightly faster rendering -->
   <link rel="preload" href="styles.css" as="style" />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+
+  <!-- ============================================
+       HEADER (Brand + Nav)
+       ============================================ -->
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="./"><span class="brand-mark">⚡</span>Archaeology Records</a>
+
+      <!-- Brand link -->
+      <a class="brand" href="./">
+        <span class="brand-mark">⚡</span>
+        Archaeology Records
+      </a>
+
+      <!-- Simple internal navigation -->
       <nav class="menu">
         <a href="./#about">About</a>
         <a href="./#features">Features</a>
@@ -19,29 +34,69 @@
     </div>
   </header>
 
+  <!-- ============================================
+       MAIN SECTION — Static list of example records
+       ============================================ -->
   <main class="section">
     <div class="container">
+
+      <!-- Page title -->
       <h1>Browse Records</h1>
-      <input id="filterInput" type="search" placeholder="Filter records..." style="margin:1rem 0;padding:.6rem;width:100%;max-width:400px;">
+
+      <!-- Filter input for table searching -->
+      <input 
+        id="filterInput" 
+        type="search" 
+        placeholder="Filter records..." 
+        style="margin:1rem 0; padding:.6rem; width:100%; max-width:400px;"
+      >
+
+      <!-- Card wrapper for scrollable table -->
       <div class="card" style="overflow:auto;">
-        <table id="recordsTable" style="width:100%;border-collapse:collapse;">
+
+        <!-- Table of static sample records -->
+        <table id="recordsTable" style="width:100%; border-collapse:collapse;">
           <thead>
             <tr>
-              <th>Site Name</th><th>Location</th><th>Description</th>
+              <th>Site Name</th>
+              <th>Location</th>
+              <th>Description</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr><td>Fort Shantok</td><td>Montville, CT</td><td>Mohegan fort and village; 17th–18th c. remains.</td></tr>
-            <tr><td>Old Newgate Mine</td><td>East Granby, CT</td><td>Colonial copper mine later used as a prison.</td></tr>
+            <!-- Example rows (can be replaced with dynamic dataset later) -->
+            <tr>
+              <td>Fort Shantok</td>
+              <td>Montville, CT</td>
+              <td>Mohegan fort and village; 17th–18th c. remains.</td>
+            </tr>
+
+            <tr>
+              <td>Old Newgate Mine</td>
+              <td>East Granby, CT</td>
+              <td>Colonial copper mine later used as a prison.</td>
+            </tr>
           </tbody>
         </table>
+
       </div>
     </div>
   </main>
 
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div><span class="brand-mark">⚡</span><strong>Archaeology Records</strong></div>
+
+      <!-- Brand repeated for footer identity -->
+      <div>
+        <span class="brand-mark">⚡</span>
+        <strong>Archaeology Records</strong>
+      </div>
+
+      <!-- Footer navigation -->
       <nav>
         <a href="./index.html">Home</a>
         <a href="#add">Add</a>
@@ -49,16 +104,34 @@
     </div>
   </footer>
 
+
+  <!-- ============================================
+       JAVASCRIPT — Simple table filter
+       ============================================ -->
   <script>
+
+    /* Attempt to update year (id="y") — safe optional chaining */
     document.getElementById("y")?.textContent = new Date().getFullYear();
+
+    /* Input field for filtering rows */
     const filterInput = document.getElementById("filterInput");
+
+    /* Returns table row elements in tbody */
     const rows = () => Array.from(document.querySelectorAll("#recordsTable tbody tr"));
-    filterInput.addEventListener("input", e=>{
-      const q = e.target.value.toLowerCase();
-      rows().forEach(r=>{
-        r.style.display = r.innerText.toLowerCase().includes(q)? "":"none";
+
+    /* Live filtering logic */
+    filterInput.addEventListener("input", e => {
+      const q = e.target.value.toLowerCase(); // search query
+
+      rows().forEach(r => {
+        // Check row text content against search query
+        const match = r.innerText.toLowerCase().includes(q);
+
+        // Show row or hide row
+        r.style.display = match ? "" : "none";
       });
     });
   </script>
+
 </body>
 </html>
